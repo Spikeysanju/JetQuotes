@@ -3,7 +3,6 @@ package www.spikeysanju.jetquotes
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.foundation.ScrollableColumn
 import androidx.compose.foundation.Text
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -46,27 +45,13 @@ class MainActivity : AppCompatActivity() {
 }
 
 
+
 @Composable
 fun QuotesList(quotes: List<Quote>) {
     // 1
-    ScrollableColumn {
-        // 2
-        Column(modifier = Modifier.padding(16.dp)) {
-            // 3
-            for (quote in quotes) {
-                // 4
-                QuotesCard(quote)
-            }
-        }
-    }
-}
-
-@Composable
-fun QuotesListV2(quotes: List<Quote>) {
-    // 1
     LazyColumnFor(items = quotes) {
         // 2
-        Column(modifier = Modifier.padding(16.dp,12.dp,12.dp,0.dp)) {
+        Column(modifier = Modifier.padding(16.dp, 12.dp, 12.dp, 0.dp)) {
             // 3
             QuotesCard(it)
         }
@@ -85,7 +70,7 @@ fun App() {
 
         )
     }, bodyContent = {
-        getQuotes()?.let { quote -> QuotesListV2(quote) }
+        getQuotes()?.let { quote -> QuotesList(quote) }
     })
 }
 
