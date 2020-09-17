@@ -16,7 +16,6 @@ import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.ContextAmbient
 import androidx.compose.ui.platform.setContent
 import androidx.compose.ui.unit.dp
@@ -64,9 +63,11 @@ fun QuotesList(quotes: List<Quote>) {
 fun App() {
     Scaffold(topBar = {
         TopAppBar(
-                title = { Text(text = "JetQuotes") },
-                backgroundColor = Color.Black, contentColor = Color.White,
-                modifier = Modifier.gravity(Alignment.CenterVertically)
+            title = { Text(text = "JetQuotes") },
+            backgroundColor = MaterialTheme.colors.primary,
+            contentColor = MaterialTheme.colors.onPrimary,
+            modifier = Modifier.gravity(Alignment.CenterVertically),
+            elevation = 0.dp
 
         )
     }, bodyContent = {
@@ -80,22 +81,22 @@ fun QuotesCard(quote: Quote) {
 
     Column(modifier = Modifier.clickable(onClick = {
 
-        Toast.makeText(context, "Clicked to bookmarks!", Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, "Clicked!", Toast.LENGTH_SHORT).show()
 
-    }).background(Color(243, 247, 249)).padding(20.dp)) {
+    }).background(MaterialTheme.colors.primaryVariant).padding(20.dp)) {
 
         Text(
-                text = quote.quote.toString(),
-                style = typography.body1,
-                color = MaterialTheme.colors.onBackground
+            text = quote.quote.toString(),
+            style = typography.body1,
+            color = MaterialTheme.colors.onBackground
         )
         Spacer(Modifier.preferredHeight(12.dp))
         Stack(modifier = Modifier.fillMaxSize()) {
             Text(
-                    modifier = Modifier.gravity(Alignment.CenterEnd).padding(16.dp),
-                    text = quote.author.toString().ifBlank { " - Unknown" },
-                    style = typography.caption,
-                    color = MaterialTheme.colors.onBackground
+                modifier = Modifier.gravity(Alignment.CenterEnd).padding(16.dp),
+                text = quote.author.toString().ifBlank { " - Unknown" },
+                style = typography.caption,
+                color = MaterialTheme.colors.onBackground
             )
             Spacer(Modifier.preferredHeight(16.dp))
         }
