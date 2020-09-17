@@ -3,38 +3,31 @@ package www.spikeysanju.jetquotes.ui
 
 import androidx.compose.material.Typography
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.*
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.font.font
+import androidx.compose.ui.text.font.fontFamily
 import androidx.compose.ui.unit.sp
 import www.spikeysanju.jetquotes.R
 
-// Set of Material typography styles to start with
-val typography = Typography(
-        body1 = TextStyle(
-                fontFamily = FontFamily.Default,
-                fontWeight = FontWeight.Normal,
-                fontSize = 16.sp
-        )
-        /* Other default text styles to override
-    button = TextStyle(
-        fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.W500,
-        fontSize = 14.sp
-    ),
-    caption = TextStyle(
-        fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.Normal,
-        fontSize = 12.sp
-    )
-    */
-)
 
 private val futura = fontFamily(
         font(R.font.futurabook),
         font(R.font.futuramedium, FontWeight.W500),
-        font(R.font.futurabold, FontWeight.Bold)
-)
+        font(R.font.futurabold, FontWeight.Bold))
+
+private val garamond = fontFamily(
+        font(R.font.garamond))
+
 
 private val MyTypography = Typography(
+
+
+        h1 = TextStyle(
+                fontFamily = garamond,
+                fontWeight = FontWeight.W300,
+                fontSize = 14.sp
+        ),
+
         body1 = TextStyle(
                 fontFamily = futura,
                 fontWeight = FontWeight.W300,
@@ -47,7 +40,7 @@ private val MyTypography = Typography(
 
 )
 
-val typographyy = Typography(defaultFontFamily = futura)
+val typography = Typography(defaultFontFamily = futura)
 
 
 

@@ -27,7 +27,7 @@ import com.squareup.moshi.Types
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import www.spikeysanju.jetquotes.model.Quote
 import www.spikeysanju.jetquotes.ui.JetQuotesTheme
-import www.spikeysanju.jetquotes.ui.typographyy
+import www.spikeysanju.jetquotes.ui.typography
 
 
 class MainActivity : AppCompatActivity() {
@@ -51,7 +51,7 @@ fun QuotesList(quotes: List<Quote>) {
     // 1
     LazyColumnFor(items = quotes) {
         // 2
-        Column(modifier = Modifier.padding(16.dp, 12.dp, 12.dp, 0.dp)) {
+        Column(modifier = Modifier.padding(16.dp, 12.dp, 0.dp, 12.dp)) {
             // 3
             QuotesCard(it)
         }
@@ -82,18 +82,19 @@ fun QuotesCard(quote: Quote) {
 
         Toast.makeText(context, "Clicked to bookmarks!", Toast.LENGTH_SHORT).show()
 
-    }).background(Color(243 ,247,249)).padding(20.dp,12.dp,12.dp,12.dp)) {
+    }).background(Color(243, 247, 249)).padding(20.dp)) {
+
         Text(
                 text = quote.quote.toString(),
-                style = typographyy.body1,
+                style = typography.body1,
                 color = MaterialTheme.colors.onBackground
         )
         Spacer(Modifier.preferredHeight(12.dp))
         Stack(modifier = Modifier.fillMaxSize()) {
             Text(
                     modifier = Modifier.gravity(Alignment.CenterEnd).padding(16.dp),
-                    text = quote.author.toString(),
-                    style = typographyy.caption,
+                    text = quote.author.toString().ifBlank { " - Unknown" },
+                    style = typography.caption,
                     color = MaterialTheme.colors.onBackground
             )
             Spacer(Modifier.preferredHeight(16.dp))

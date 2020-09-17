@@ -42,9 +42,9 @@ fun JetQuotesTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composa
     }
 
     MaterialTheme(
-        colors = colors,
-        typography = typographyy,
-        shapes = shapes,
-        content = content
+            colors = colors,
+            typography = typography,
+            shapes = shapes,
+            content = content
     )
 }
