@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">JetQuotes</string>
+    <string name="title_activity_quote_details">JetQuotes</string>
 </resources>

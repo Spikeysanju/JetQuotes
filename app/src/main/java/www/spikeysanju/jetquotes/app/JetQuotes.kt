@@ -10,7 +10,7 @@ class JetQuotes : Application(){
 
         // check for ui mode & set accordingly
         val mode = if (isNight()) {
-            AppCompatDelegate.MODE_NIGHT_YES
+            AppCompatDelegate.MODE_NIGHT_NO
         } else {
             AppCompatDelegate.MODE_NIGHT_NO
         }

@@ -1,5 +1,7 @@
 package www.spikeysanju.jetquotes
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -24,6 +26,7 @@ import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import www.spikeysanju.jetquotes.MainActivity.Companion.launchQuoteDetails
 import www.spikeysanju.jetquotes.model.Quote
 import www.spikeysanju.jetquotes.ui.JetQuotesTheme
 import www.spikeysanju.jetquotes.ui.typography
@@ -41,6 +44,18 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
+
+    companion object {
+        fun launchQuoteDetails(context: Context?, quote: String, author: String) {
+            val intent = Intent(context, QuoteDetails::class.java).apply {
+                putExtra("quote", quote)
+                putExtra("author", author)
+
+            }
+            context?.startActivity(intent)
+        }
+    }
 }
 
 
@@ -50,7 +65,7 @@ fun QuotesList(quotes: List<Quote>) {
     // 1
     LazyColumnFor(items = quotes) {
         // 2
-        Column(modifier = Modifier.padding(16.dp, 12.dp, 0.dp, 12.dp)) {
+        Column(modifier = Modifier.padding(36.dp, 12.dp, 0.dp, 12.dp)) {
             // 3
             QuotesCard(it)
         }
@@ -63,11 +78,11 @@ fun QuotesList(quotes: List<Quote>) {
 fun App() {
     Scaffold(topBar = {
         TopAppBar(
-            title = { Text(text = "JetQuotes") },
-            backgroundColor = MaterialTheme.colors.primary,
-            contentColor = MaterialTheme.colors.onPrimary,
-            modifier = Modifier.gravity(Alignment.CenterVertically),
-            elevation = 0.dp
+                title = { Text(text = "JetQuotes") },
+                backgroundColor = MaterialTheme.colors.primary,
+                contentColor = MaterialTheme.colors.onPrimary,
+                modifier = Modifier.gravity(Alignment.CenterVertically),
+                elevation = 0.dp
 
         )
     }, bodyContent = {
@@ -82,6 +97,7 @@ fun QuotesCard(quote: Quote) {
     Column(modifier = Modifier.clickable(onClick = {
 
         Toast.makeText(context, "Clicked!", Toast.LENGTH_SHORT).show()
+        launchQuoteDetails(context, quote.quote.toString(), quote.author.toString())
 
     }).background(MaterialTheme.colors.primaryVariant).padding(20.dp)) {
 
@@ -93,12 +109,12 @@ fun QuotesCard(quote: Quote) {
         Spacer(Modifier.preferredHeight(12.dp))
         Stack(modifier = Modifier.fillMaxSize()) {
             Text(
-                modifier = Modifier.gravity(Alignment.CenterEnd).padding(16.dp),
-                text = quote.author.toString().ifBlank { " - Unknown" },
-                style = typography.caption,
-                color = MaterialTheme.colors.onBackground
+                    modifier = Modifier.gravity(Alignment.CenterEnd).padding(12.dp),
+                    text = quote.author.toString().ifBlank { " - Unknown" },
+                    style = typography.caption,
+                    color = MaterialTheme.colors.onBackground
             )
-            Spacer(Modifier.preferredHeight(16.dp))
+            Spacer(Modifier.preferredHeight(8.dp))
         }
 
     }
@@ -122,3 +138,4 @@ fun getQuotes(): List<Quote>? {
     return adapter.fromJson(myJson)
 
 }
+
