@@ -12,7 +12,7 @@ class JetQuotes : Application(){
         val mode = if (isNight()) {
             AppCompatDelegate.MODE_NIGHT_NO
         } else {
-            AppCompatDelegate.MODE_NIGHT_NO
+            AppCompatDelegate.MODE_NIGHT_YES
         }
 
         AppCompatDelegate.setDefaultNightMode(mode)
