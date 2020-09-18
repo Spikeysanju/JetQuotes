@@ -8,8 +8,11 @@ import androidx.compose.foundation.Text
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.RowScope.gravity
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
+import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.outlined.Create
@@ -37,14 +40,33 @@ class QuoteDetails : AppCompatActivity() {
             JetQuotesTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(color = MaterialTheme.colors.background) {
-                    DetailCard(
-                            quote = quote,
-                            author = author
-                    )
+                    DetailQuoteApp(quote = quote, author = author)
                 }
             }
         }
     }
+}
+
+
+@Composable
+fun DetailQuoteApp(quote: String, author: String) {
+    Scaffold(topBar = {
+        TopAppBar(
+                title = { Text(text = "JetQuotes") },
+                backgroundColor = MaterialTheme.colors.primary,
+                contentColor = MaterialTheme.colors.onPrimary,
+                modifier = Modifier.gravity(Alignment.CenterVertically),
+                elevation = 0.dp
+
+        )
+    }, bodyContent = {
+
+        DetailCard(
+                quote = quote,
+                author = author
+        )
+
+    })
 }
 
 
@@ -127,6 +149,7 @@ fun ctaButtons() {
 
 
 }
+
 
 @Composable
 fun CTAOptions(icon: VectorAsset, name: String?) {
