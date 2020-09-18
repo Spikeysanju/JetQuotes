@@ -84,8 +84,9 @@ fun DetailCard(quote: String, author: String) {
                 ) {
 
             Text(
+                    modifier = Modifier.gravity(Alignment.CenterHorizontally),
                     text = """ " """,
-                    style = typography.h5,
+                    style = typography.h4,
                     color = MaterialTheme.colors.onBackground,
                     textAlign = TextAlign.Center
             )
@@ -93,6 +94,7 @@ fun DetailCard(quote: String, author: String) {
             Spacer(Modifier.preferredHeight(16.dp))
 
             Text(
+                    modifier = Modifier.gravity(Alignment.CenterHorizontally),
                     text = quote.ifBlank { " No Quotes found" },
                     style = typography.h5,
                     color = MaterialTheme.colors.onBackground,
