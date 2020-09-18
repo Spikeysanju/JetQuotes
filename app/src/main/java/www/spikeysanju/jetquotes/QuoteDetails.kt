@@ -29,6 +29,7 @@ import androidx.compose.ui.unit.dp
 import androidx.ui.tooling.preview.Preview
 import www.spikeysanju.jetquotes.ui.JetQuotesTheme
 import www.spikeysanju.jetquotes.ui.typography
+import www.spikeysanju.jetquotes.utils.copyToClipboard
 
 class QuoteDetails : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -78,6 +79,7 @@ fun DetailCard(quote: String, author: String) {
 
         Column(
                 modifier = Modifier.clickable(onClick = {
+                    context.copyToClipboard(quote.plus("").plus("- $author"))
                     Toast.makeText(context, "Quote copied!", Toast.LENGTH_SHORT).show()
                 }).background(MaterialTheme.colors.primaryVariant).padding(40.dp).gravity(Alignment.Center).padding(12.dp),
 
