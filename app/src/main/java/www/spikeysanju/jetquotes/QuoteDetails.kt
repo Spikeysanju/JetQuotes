@@ -32,16 +32,19 @@ import www.spikeysanju.jetquotes.ui.typography
 import www.spikeysanju.jetquotes.utils.copyToClipboard
 
 class QuoteDetails : AppCompatActivity() {
+    private var quote: String? = null
+    private var author: String? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val quote = intent.getStringExtra("quote") ?: "No values for quote"
-        val author = intent.getStringExtra("author") ?: "No values for author"
+        quote = intent.getStringExtra("quote") ?: "No values for quote"
+        author = intent.getStringExtra("author") ?: "No values for author"
 
         setContent {
             JetQuotesTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(color = MaterialTheme.colors.background) {
-                    DetailQuoteApp(quote = quote, author = author)
+                    DetailQuoteApp(quote = quote!!, author = author!!)
                 }
             }
         }
@@ -113,14 +116,14 @@ fun DetailCard(quote: String, author: String) {
                     textAlign = TextAlign.Center
             )
         }
-        ctaButtons()
+        ctaButtons(quote, author)
     }
 
 }
 
 @Composable
-fun ctaButtons() {
-
+fun ctaButtons(quote: String, author: String) {
+    val context = ContextAmbient.current
     Stack(modifier = Modifier.fillMaxSize()) {
         Row(modifier = Modifier.background(MaterialTheme.colors.primaryVariant)
                 .gravity(Alignment.BottomEnd)
@@ -128,21 +131,31 @@ fun ctaButtons() {
 
             CTAOptions(
                     icon = Icons.Outlined.Create,
-                    name = "COPY")
+                    name = "COPY",
+                    modifier = Modifier.clickable(onClick = {
+                        context.copyToClipboard(quote.plus("").plus("- $author"))
+                        Toast.makeText(context, "Quote Copied!", Toast.LENGTH_SHORT).show()
+                    })
+            )
 
             Spacer(modifier = Modifier.width(30.dp))
 
-
             CTAOptions(
                     icon = Icons.Default.ArrowDropDown,
-                    name = "SAVE"
+                    name = "SAVE",
+                    modifier = Modifier.clickable(onClick = {
+
+                    })
             )
 
             Spacer(modifier = Modifier.width(30.dp))
 
             CTAOptions(
                     icon = Icons.Outlined.Share,
-                    name = "SHARE"
+                    name = "SHARE",
+                    modifier = Modifier.clickable(onClick = {
+
+                    })
             )
 
             Spacer(modifier = Modifier.width(30.dp))
@@ -156,12 +169,9 @@ fun ctaButtons() {
 
 
 @Composable
-fun CTAOptions(icon: VectorAsset, name: String?) {
-    val context = ContextAmbient.current
+fun CTAOptions(icon: VectorAsset, name: String?, modifier: Modifier) {
     Column(
-            modifier = Modifier.clickable(onClick = {
-                Toast.makeText(context, "cta clicked!", Toast.LENGTH_SHORT).show()
-            }).background(MaterialTheme.colors.primaryVariant).padding(12.dp)) {
+            modifier.background(MaterialTheme.colors.primaryVariant).padding(12.dp)) {
 
         Icon(
                 asset = icon
