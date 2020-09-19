@@ -1,16 +1,11 @@
-package www.spikeysanju.jetquotes
+package www.spikeysanju.jetquotes.view
 
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.Text
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.RowScope.gravity
-import androidx.compose.foundation.lazy.LazyColumnFor
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
@@ -26,10 +21,9 @@ import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
-import www.spikeysanju.jetquotes.MainActivity.Companion.launchQuoteDetails
+import www.spikeysanju.jetquotes.components.QuotesList
 import www.spikeysanju.jetquotes.model.Quote
 import www.spikeysanju.jetquotes.ui.JetQuotesTheme
-import www.spikeysanju.jetquotes.ui.typography
 
 
 class MainActivity : AppCompatActivity() {
@@ -59,19 +53,23 @@ class MainActivity : AppCompatActivity() {
 }
 
 
-
 @Composable
-fun QuotesList(quotes: List<Quote>) {
-    // 1
-    LazyColumnFor(items = quotes) {
-        // 2
-        Column(modifier = Modifier.padding(36.dp, 12.dp, 0.dp, 12.dp)) {
-            // 3
-            QuotesCard(it)
-        }
-    }
-}
+fun getQuotes(): List<Quote>? {
 
+    val context = ContextAmbient.current
+    val moshi = Moshi.Builder()
+            .add(KotlinJsonAdapterFactory())
+            .build()
+
+    val listType = Types.newParameterizedType(List::class.java, Quote::class.java)
+    val adapter: JsonAdapter<List<Quote>> = moshi.adapter(listType)
+
+    val file = "quotes.json"
+    val myJson = context.assets.open(file).bufferedReader().use { it.readText() }
+
+    return adapter.fromJson(myJson)
+
+}
 
 @Preview(showBackground = true)
 @Composable
@@ -90,52 +88,6 @@ fun App() {
     })
 }
 
-@Composable
-fun QuotesCard(quote: Quote) {
-    val context = ContextAmbient.current
-
-    Column(modifier = Modifier.clickable(onClick = {
-
-        Toast.makeText(context, "Clicked!", Toast.LENGTH_SHORT).show()
-        launchQuoteDetails(context, quote.quote.toString(), quote.author.toString())
-
-    }).background(MaterialTheme.colors.primaryVariant).padding(20.dp)) {
-
-        Text(
-            text = quote.quote.toString(),
-            style = typography.body1,
-            color = MaterialTheme.colors.onBackground
-        )
-        Spacer(Modifier.preferredHeight(12.dp))
-        Stack(modifier = Modifier.fillMaxSize()) {
-            Text(
-                    modifier = Modifier.gravity(Alignment.CenterEnd).padding(12.dp),
-                    text = quote.author.toString().ifBlank { " - Unknown" },
-                    style = typography.caption,
-                    color = MaterialTheme.colors.onBackground
-            )
-            Spacer(Modifier.preferredHeight(8.dp))
-        }
-
-    }
-}
 
 
-@Composable
-fun getQuotes(): List<Quote>? {
-
-    val context = ContextAmbient.current
-    val moshi = Moshi.Builder()
-            .add(KotlinJsonAdapterFactory())
-            .build()
-
-    val listType = Types.newParameterizedType(List::class.java, Quote::class.java)
-    val adapter: JsonAdapter<List<Quote>> = moshi.adapter(listType)
-
-    val file = "quotes.json"
-    val myJson = context.assets.open(file).bufferedReader().use { it.readText() }
-
-    return adapter.fromJson(myJson)
-
-}
 

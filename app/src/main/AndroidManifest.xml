@@ -11,11 +11,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.JetQuotes">
         <activity
-            android:name=".QuoteDetails"
+            android:name=".view.QuoteDetails"
             android:label="@string/title_activity_quote_details"
             android:theme="@style/Theme.JetQuotes.NoActionBar"></activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".view.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/Theme.JetQuotes.NoActionBar">
             <intent-filter>
