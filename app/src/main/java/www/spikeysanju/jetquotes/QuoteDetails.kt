@@ -14,7 +14,6 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.outlined.Create
 import androidx.compose.material.icons.outlined.Share
 import androidx.compose.runtime.Composable
@@ -30,6 +29,7 @@ import androidx.ui.tooling.preview.Preview
 import www.spikeysanju.jetquotes.ui.JetQuotesTheme
 import www.spikeysanju.jetquotes.ui.typography
 import www.spikeysanju.jetquotes.utils.copyToClipboard
+import www.spikeysanju.jetquotes.utils.shareToOthers
 
 class QuoteDetails : AppCompatActivity() {
     private var quote: String? = null
@@ -141,21 +141,11 @@ fun ctaButtons(quote: String, author: String) {
             Spacer(modifier = Modifier.width(30.dp))
 
             CTAOptions(
-                    icon = Icons.Default.ArrowDropDown,
-                    name = "SAVE",
-                    modifier = Modifier.clickable(onClick = {
-
-                    })
-            )
-
-            Spacer(modifier = Modifier.width(30.dp))
-
-            CTAOptions(
-                    icon = Icons.Outlined.Share,
-                    name = "SHARE",
-                    modifier = Modifier.clickable(onClick = {
-
-                    })
+                icon = Icons.Outlined.Share,
+                name = "SHARE",
+                modifier = Modifier.clickable(onClick = {
+                    context.shareToOthers(quote.plus("").plus("- $author"))
+                })
             )
 
             Spacer(modifier = Modifier.width(30.dp))
