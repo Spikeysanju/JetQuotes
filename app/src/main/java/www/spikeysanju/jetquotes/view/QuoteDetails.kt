@@ -79,7 +79,6 @@ fun DetailQuoteApp(quote: String, author: String) {
             elevation = 0.dp
         )
     }, bodyContent = {
-
         // pass quote & author params to details card
         DetailCard(
             quote = quote,
