@@ -3,7 +3,7 @@
  *  *
  *  *  * MIT License
  *  *  *
- *  *  * Copyright (c) 2020 Spikey Sanju
+ *  *  * Copyright (c) 2020 Sanju S
  *  *  *
  *  *  * Permission is hereby granted, free of charge, to any person obtaining a copy
  *  *  * of this software and associated documentation files (the "Software"), to deal
@@ -26,6 +26,7 @@
  *
  */
 
+
 package www.spikeysanju.jetquotes.app
 
 import android.app.Application
@@ -47,3 +48,4 @@ class JetQuotes : Application() {
     }
 
 }
+

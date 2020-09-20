@@ -3,7 +3,7 @@
  *  *
  *  *  * MIT License
  *  *  *
- *  *  * Copyright (c) 2020 Spikey Sanju
+ *  *  * Copyright (c) 2020 Sanju S
  *  *  *
  *  *  * Permission is hereby granted, free of charge, to any person obtaining a copy
  *  *  * of this software and associated documentation files (the "Software"), to deal
@@ -39,7 +39,6 @@ import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.ContextAmbient
 import androidx.compose.ui.platform.setContent
 import androidx.compose.ui.unit.dp
 import androidx.ui.tooling.preview.Preview
@@ -71,7 +70,6 @@ class QuoteDetails : AppCompatActivity() {
 
 @Composable
 fun DetailQuoteApp(quote: String, author: String) {
-    val context = ContextAmbient.current
     Scaffold(topBar = {
         TopAppBar(
             title = { Text(text = "JetQuotes") },
