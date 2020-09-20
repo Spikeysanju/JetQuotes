@@ -29,21 +29,20 @@
 package www.spikeysanju.jetquotes.view
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.foundation.Icon
 import androidx.compose.foundation.Text
 import androidx.compose.foundation.layout.RowScope.gravity
-import androidx.compose.material.*
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Scaffold
+import androidx.compose.material.Surface
+import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ContextAmbient
 import androidx.compose.ui.platform.setContent
-import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import androidx.ui.tooling.preview.Preview
-import www.spikeysanju.jetquotes.R
 import www.spikeysanju.jetquotes.components.DetailCard
 import www.spikeysanju.jetquotes.ui.JetQuotesTheme
 
@@ -79,17 +78,7 @@ fun DetailQuoteApp(quote: String, author: String) {
             backgroundColor = MaterialTheme.colors.primary,
             contentColor = MaterialTheme.colors.onPrimary,
             modifier = Modifier.gravity(Alignment.CenterVertically),
-            elevation = 0.dp,
-
-            // Set back navigation
-            navigationIcon = {
-                IconButton(onClick = {
-                    Toast.makeText(context, "Back clicked!", Toast.LENGTH_SHORT).show()
-
-                }) {
-                    Icon(vectorResource(id = R.drawable.ic_back))
-                }
-            }
+            elevation = 0.dp
         )
     }, bodyContent = {
 
