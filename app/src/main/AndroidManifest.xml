@@ -39,10 +39,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.JetQuotes">
         <activity
-            android:name=".view.TestActivity"
-            android:label="@string/title_activity_test"
-            android:theme="@style/Theme.JetQuotes.NoActionBar"></activity>
-        <activity
             android:name=".view.QuoteDetails"
             android:label="@string/title_activity_quote_details"
             android:theme="@style/Theme.JetQuotes.NoActionBar" />

@@ -42,6 +42,8 @@ class JetQuotes : Application() {
         } else {
             AppCompatDelegate.MODE_NIGHT_NO
         }
+
+        AppCompatDelegate.setDefaultNightMode(mode)
     }
 
 }
