@@ -35,7 +35,7 @@ If this project help you reduce time to develop, you can give me a cup of coffee
 ```
 MIT License
 
-Copyright (c) 2020 Spikey Sanju
+Copyright (c) 2020 Sanju S
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
