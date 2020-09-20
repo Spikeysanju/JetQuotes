@@ -112,6 +112,7 @@ fun App() {
             elevation = 0.dp
         )
     }, bodyContent = {
+        // pass list of quotes
         getQuotes()?.let { quote -> QuotesList(quote) }
     })
 }
