@@ -18,7 +18,7 @@ A Quotes Application built to Demonstrate the use of Jetpack Compose for buildin
 
 ## Contribute
 If you want to contribute to this library, you're always welcome!
-See [Contributing Guidelines](https://github.com/TheCodeMonks/Notzz-App/blob/master/CONTRIBUTION.md). 
+See [Contributing Guidelines](https://github.com/Spikeysanju/JetQuotes/blob/master/CONTRIBUTION.md). 
 
 ## Contact
 Have an project? DM us at 👇
