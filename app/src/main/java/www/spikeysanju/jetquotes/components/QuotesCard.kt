@@ -49,12 +49,19 @@ fun QuotesCard(quote: Quote) {
     Column(modifier = Modifier.clickable(onClick = {
         launchQuoteDetails(context, quote.quote.toString(), quote.author.toString())
 
-    }).background(MaterialTheme.colors.primaryVariant).padding(20.dp)) {
+    }).background(MaterialTheme.colors.primaryVariant).padding(12.dp)) {
+
+        Text(
+            text = """ " """,
+            style = typography.h4,
+            color = MaterialTheme.colors.onBackground
+        )
 
         Text(
             text = quote.quote.toString(),
             style = typography.body1,
-            color = MaterialTheme.colors.onBackground
+            color = MaterialTheme.colors.onBackground,
+            modifier = Modifier.padding(12.dp, 0.dp, 0.dp, 0.dp)
         )
         Spacer(Modifier.preferredHeight(12.dp))
         Stack(modifier = Modifier.fillMaxSize()) {

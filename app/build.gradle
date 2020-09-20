@@ -87,20 +87,6 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
 
-    // Coroutines
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.9"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.9"
-
-
-    // Lifecycle KTX
-    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.2.0"
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.2.0"
-
-    
-    // Preferences DataStore
-    implementation "androidx.datastore:datastore-preferences:1.0.0-alpha01"
-
-
     // Moshi
     implementation("com.squareup.moshi:moshi-kotlin:1.9.3")
 }
