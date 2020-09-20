@@ -1,3 +1,31 @@
+/*
+ *
+ *  *
+ *  *  * MIT License
+ *  *  *
+ *  *  * Copyright (c) 2020 Spikey Sanju
+ *  *  *
+ *  *  * Permission is hereby granted, free of charge, to any person obtaining a copy
+ *  *  * of this software and associated documentation files (the "Software"), to deal
+ *  *  * in the Software without restriction, including without limitation the rights
+ *  *  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ *  *  * copies of the Software, and to permit persons to whom the Software is
+ *  *  * furnished to do so, subject to the following conditions:
+ *  *  *
+ *  *  * The above copyright notice and this permission notice shall be included in all
+ *  *  * copies or substantial portions of the Software.
+ *  *  *
+ *  *  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ *  *  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ *  *  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ *  *  * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ *  *  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ *  *  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ *  *  * SOFTWARE.
+ *  *
+ *
+ */
+
 package www.spikeysanju.jetquotes.view
 
 import android.os.Bundle
@@ -23,9 +51,9 @@ import www.spikeysanju.jetquotes.ui.JetQuotesTheme
 class QuoteDetails : AppCompatActivity() {
     private var quote: String? = null
     private var author: String? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
 
         // receive bundles here
         quote = intent.getStringExtra("quote") ?: "No values for quote"
@@ -42,46 +70,37 @@ class QuoteDetails : AppCompatActivity() {
     }
 }
 
-
 @Composable
 fun DetailQuoteApp(quote: String, author: String) {
     val context = ContextAmbient.current
     Scaffold(topBar = {
         TopAppBar(
-                title = { Text(text = "JetQuotes") },
-                backgroundColor = MaterialTheme.colors.primary,
-                contentColor = MaterialTheme.colors.onPrimary,
-                modifier = Modifier.gravity(Alignment.CenterVertically),
-                elevation = 0.dp,
+            title = { Text(text = "JetQuotes") },
+            backgroundColor = MaterialTheme.colors.primary,
+            contentColor = MaterialTheme.colors.onPrimary,
+            modifier = Modifier.gravity(Alignment.CenterVertically),
+            elevation = 0.dp,
 
-                // Set back navigation
-                navigationIcon = {
-                    IconButton(onClick = {}) {
-                        Icon(vectorResource(id = R.drawable.ic_back))
-                    }
-                },
+            // Set back navigation
+            navigationIcon = {
+                IconButton(onClick = {
+                    Toast.makeText(context, "Back clicked!", Toast.LENGTH_SHORT).show()
 
-                // Change UI Mode Button
-                actions = {
-                    IconButton(onClick = {
-                        Toast.makeText(context, "UI Mode Changed!", Toast.LENGTH_SHORT).show()
-                    }) {
-                        Icon(vectorResource(id = R.drawable.ic_day))
-                    }
+                }) {
+                    Icon(vectorResource(id = R.drawable.ic_back))
                 }
-
+            }
         )
     }, bodyContent = {
 
         // pass quote & author params to details card
         DetailCard(
-                quote = quote,
-                author = author
+            quote = quote,
+            author = author
         )
 
     })
 }
-
 
 @Preview(showBackground = true)
 @Composable

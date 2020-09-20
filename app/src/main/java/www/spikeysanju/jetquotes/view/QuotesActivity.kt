@@ -1,3 +1,31 @@
+/*
+ *
+ *  *
+ *  *  * MIT License
+ *  *  *
+ *  *  * Copyright (c) 2020 Spikey Sanju
+ *  *  *
+ *  *  * Permission is hereby granted, free of charge, to any person obtaining a copy
+ *  *  * of this software and associated documentation files (the "Software"), to deal
+ *  *  * in the Software without restriction, including without limitation the rights
+ *  *  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ *  *  * copies of the Software, and to permit persons to whom the Software is
+ *  *  * furnished to do so, subject to the following conditions:
+ *  *  *
+ *  *  * The above copyright notice and this permission notice shall be included in all
+ *  *  * copies or substantial portions of the Software.
+ *  *  *
+ *  *  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ *  *  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ *  *  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ *  *  * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ *  *  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ *  *  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ *  *  * SOFTWARE.
+ *  *
+ *
+ */
+
 package www.spikeysanju.jetquotes.view
 
 import android.content.Context
@@ -26,9 +54,10 @@ import www.spikeysanju.jetquotes.model.Quote
 import www.spikeysanju.jetquotes.ui.JetQuotesTheme
 
 
-class MainActivity : AppCompatActivity() {
+class QuotesActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContent {
             JetQuotesTheme {
                 // A surface container using the 'background' color from the theme
@@ -39,8 +68,8 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-
     companion object {
+
         fun launchQuoteDetails(context: Context?, quote: String, author: String) {
             val intent = Intent(context, QuoteDetails::class.java).apply {
                 putExtra("quote", quote)
@@ -58,8 +87,8 @@ fun getQuotes(): List<Quote>? {
 
     val context = ContextAmbient.current
     val moshi = Moshi.Builder()
-            .add(KotlinJsonAdapterFactory())
-            .build()
+        .add(KotlinJsonAdapterFactory())
+        .build()
 
     val listType = Types.newParameterizedType(List::class.java, Quote::class.java)
     val adapter: JsonAdapter<List<Quote>> = moshi.adapter(listType)
@@ -76,17 +105,18 @@ fun getQuotes(): List<Quote>? {
 fun App() {
     Scaffold(topBar = {
         TopAppBar(
-                title = { Text(text = "JetQuotes") },
-                backgroundColor = MaterialTheme.colors.primary,
-                contentColor = MaterialTheme.colors.onPrimary,
-                modifier = Modifier.gravity(Alignment.CenterVertically),
-                elevation = 0.dp
-
+            title = { Text(text = "JetQuotes") },
+            backgroundColor = MaterialTheme.colors.primary,
+            contentColor = MaterialTheme.colors.onPrimary,
+            modifier = Modifier.gravity(Alignment.CenterVertically),
+            elevation = 0.dp
         )
     }, bodyContent = {
         getQuotes()?.let { quote -> QuotesList(quote) }
     })
 }
+
+
 
 
 
