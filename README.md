@@ -1,7 +1,7 @@
 
 
 
-![GitHub Cards Preview](https://github.com/TheCodeMonks/TechBytes/blob/master/screenshots/nytimes_card.jpg?raw=true)
+![GitHub Cards Preview](https://github.com/Spikeysanju/JetQuotes/blob/master/art/jetquotes_preview_card.png)
 
 
 # 🔖 JetQuotes 
