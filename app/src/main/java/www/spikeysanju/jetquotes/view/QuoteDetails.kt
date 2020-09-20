@@ -52,7 +52,6 @@ class QuoteDetails : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-
         // receive bundles here
         quote = intent.getStringExtra("quote") ?: "No values for quote"
         author = intent.getStringExtra("author") ?: "No values for author"
