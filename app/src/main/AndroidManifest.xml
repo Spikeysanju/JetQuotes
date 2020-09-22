@@ -4,7 +4,7 @@
   ~  *
   ~  *  * MIT License
   ~  *  *
-  ~  *  * Copyright (c) 2020 Spikey Sanju
+  ~  *  * Copyright (c) 2020 Sanju S
   ~  *  *
   ~  *  * Permission is hereby granted, free of charge, to any person obtaining a copy
   ~  *  * of this software and associated documentation files (the "Software"), to deal
@@ -33,9 +33,9 @@
     <application
         android:name=".app.JetQuotes"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/ic_jetquotes_logo"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/ic_jetquotes_logo"
         android:supportsRtl="true"
         android:theme="@style/Theme.JetQuotes">
         <activity
