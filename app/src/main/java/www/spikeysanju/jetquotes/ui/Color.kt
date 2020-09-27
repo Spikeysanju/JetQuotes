@@ -28,7 +28,6 @@
 
 package www.spikeysanju.jetquotes.ui
 
-
 import androidx.compose.ui.graphics.Color
 
 val white = Color(0xffffffff)

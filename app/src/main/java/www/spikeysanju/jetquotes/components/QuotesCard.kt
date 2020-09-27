@@ -63,7 +63,9 @@ fun QuotesCard(quote: Quote) {
             color = MaterialTheme.colors.onBackground,
             modifier = Modifier.padding(12.dp, 0.dp, 0.dp, 0.dp)
         )
+
         Spacer(Modifier.preferredHeight(12.dp))
+
         Stack(modifier = Modifier.fillMaxSize()) {
             Text(
                 modifier = Modifier.gravity(Alignment.CenterEnd).padding(12.dp),
