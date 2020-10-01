@@ -53,12 +53,12 @@ fun DetailCard(quote: String, author: String) {
             modifier = Modifier.clickable(onClick = {
                 context.copyToClipboard(quote.plus("").plus("- $author"))
                 Toast.makeText(context, "Quote copied!", Toast.LENGTH_SHORT).show()
-            }).background(MaterialTheme.colors.primaryVariant).padding(40.dp).gravity(Alignment.Center).padding(12.dp),
+            }).background(MaterialTheme.colors.primaryVariant).padding(40.dp).align(Alignment.Center).padding(12.dp),
 
             ) {
 
             Text(
-                modifier = Modifier.gravity(Alignment.CenterHorizontally),
+                modifier = Modifier.align(Alignment.CenterHorizontally),
                 text = """ " """,
                 style = typography.h4,
                 color = MaterialTheme.colors.onBackground,
@@ -68,7 +68,7 @@ fun DetailCard(quote: String, author: String) {
             Spacer(Modifier.preferredHeight(16.dp))
 
             Text(
-                modifier = Modifier.gravity(Alignment.CenterHorizontally),
+                modifier = Modifier.align(Alignment.CenterHorizontally),
                 text = quote.ifBlank { " No Quotes found" },
                 style = typography.h5,
                 color = MaterialTheme.colors.onBackground,
@@ -78,7 +78,7 @@ fun DetailCard(quote: String, author: String) {
             Spacer(Modifier.preferredHeight(16.dp))
 
             Text(
-                modifier = Modifier.gravity(Alignment.CenterHorizontally),
+                modifier = Modifier.align(Alignment.CenterHorizontally),
                 text = author.ifBlank { " - Unknown" },
                 style = typography.body1,
                 color = MaterialTheme.colors.onBackground,

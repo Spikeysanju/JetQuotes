@@ -48,7 +48,7 @@ fun CTAButtons(quote: String, author: String) {
     val context = ContextAmbient.current
     Stack(modifier = Modifier.fillMaxSize()) {
         Row(modifier = Modifier.background(MaterialTheme.colors.primaryVariant)
-            .gravity(Alignment.BottomEnd)
+            .align(Alignment.BottomEnd)
             .padding(30.dp, 30.dp, 0.dp, 30.dp)) {
 
             Button(
