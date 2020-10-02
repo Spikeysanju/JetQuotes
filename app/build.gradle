@@ -35,13 +35,12 @@ plugins {
 }
 
 android {
-    compileSdkVersion 29
-    buildToolsVersion "29.0.3"
+    compileSdkVersion 30
 
     defaultConfig {
         applicationId "www.spikeysanju.jetquotes"
         minSdkVersion 21
-        targetSdkVersion 29
+        targetSdkVersion 30
         versionCode 1
         versionName "1.0"
 
@@ -89,4 +88,7 @@ dependencies {
 
     // Moshi
     implementation("com.squareup.moshi:moshi-kotlin:1.9.3")
+
+    // Preferences DataStore
+    implementation "androidx.datastore:datastore-preferences:1.0.0-alpha01"
 }

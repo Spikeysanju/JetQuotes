@@ -26,12 +26,19 @@
  *
  */
 
-package www.spikeysanju.jetquotes.utils
+package www.spikeysanju.jetquotes.components
 
-import java.util.*
+import androidx.compose.foundation.Icon
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.padding
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.unit.dp
+import www.spikeysanju.jetquotes.R
 
-fun isNight(): Boolean {
-    val currentHour = Calendar.getInstance()
-        .get(Calendar.HOUR_OF_DAY)
-    return (currentHour <= 7 || currentHour >= 18)
+@Composable
+fun QuotesThemeSwitch(onToggle: () -> Unit) {
+    val icon = vectorResource(R.drawable.ic_share)
+    Icon(icon, Modifier.padding(end = 8.dp).clickable(onClick = onToggle))
 }
