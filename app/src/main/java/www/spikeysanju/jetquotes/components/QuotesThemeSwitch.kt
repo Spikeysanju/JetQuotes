@@ -26,13 +26,19 @@
  *
  */
 
+package www.spikeysanju.jetquotes.components
 
-package www.spikeysanju.jetquotes.app
+import androidx.compose.foundation.Icon
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.padding
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.unit.dp
+import www.spikeysanju.jetquotes.R
 
-import android.app.Application
-class JetQuotes : Application() {
-    override fun onCreate() {
-        super.onCreate()
-    }
+@Composable
+fun QuotesThemeSwitch(onToggle: () -> Unit) {
+    val icon = vectorResource(R.drawable.ic_share)
+    Icon(icon, Modifier.padding(end = 8.dp).clickable(onClick = onToggle))
 }
-

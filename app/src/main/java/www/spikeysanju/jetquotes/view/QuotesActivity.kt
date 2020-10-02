@@ -32,7 +32,9 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.foundation.Text
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.RowScope.align
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.MaterialTheme
@@ -40,31 +42,75 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ContextAmbient
 import androidx.compose.ui.platform.setContent
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.ui.tooling.preview.Preview
+import androidx.lifecycle.lifecycleScope
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import kotlinx.coroutines.InternalCoroutinesApi
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.launch
 import www.spikeysanju.jetquotes.components.QuotesList
+import www.spikeysanju.jetquotes.components.QuotesThemeSwitch
+import www.spikeysanju.jetquotes.data.preference.PrefsManager
+import www.spikeysanju.jetquotes.data.preference.UiMode
 import www.spikeysanju.jetquotes.model.Quote
 import www.spikeysanju.jetquotes.ui.JetQuotesTheme
 
 
 class QuotesActivity : AppCompatActivity() {
+
+
+    @InternalCoroutinesApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        val prefsManager = PrefsManager(context = this)
+        lifecycleScope.launch {
+            prefsManager.uiModeFlow.collect {
+                when (it) {
+                    UiMode.DARK -> {
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                    }
+                    UiMode.LIGHT -> {
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                    }
+                }
+            }
+        }
+
         setContent {
-            JetQuotesTheme {
+            val currentTheme = isSystemInDarkTheme()
+            val darkMode by prefsManager.uiModeFlow.map { uiMode ->
+                when (uiMode) {
+                    UiMode.DARK -> {
+                        true
+                    }
+                    UiMode.LIGHT -> {
+                        false
+                    }
+                }
+            }.collectAsState(initial = currentTheme)
+
+            val toggleTheme: () -> Unit = {
+                lifecycleScope.launch {
+                    prefsManager.setUiMode(if (darkMode) UiMode.LIGHT else UiMode.DARK)
+                }
+            }
+
+            JetQuotesTheme(darkMode) {
                 // A surface container using the 'background' color from the theme
                 Surface(color = MaterialTheme.colors.background) {
-                    App()
+                    App(toggleTheme)
                 }
             }
         }
@@ -102,16 +148,24 @@ fun getQuotes(): List<Quote>? {
 
 }
 
-@Preview(showBackground = true)
 @Composable
-fun App() {
+fun App(toggleTheme: () -> Unit) {
     Scaffold(topBar = {
         TopAppBar(
-                title = { Text(text = "JetQuotes", textAlign = TextAlign.Center, modifier = Modifier.fillMaxWidth()) },
-                backgroundColor = MaterialTheme.colors.primary,
-                contentColor = MaterialTheme.colors.onPrimary,
-                modifier = Modifier.align(Alignment.CenterVertically),
-                elevation = 0.dp
+            title = {
+                Text(
+                    text = "JetQuotes",
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.fillMaxWidth()
+                )
+            },
+            backgroundColor = MaterialTheme.colors.primary,
+            contentColor = MaterialTheme.colors.onPrimary,
+            modifier = Modifier.align(Alignment.CenterVertically),
+            elevation = 0.dp,
+            actions = {
+                QuotesThemeSwitch(toggleTheme)
+            }
         )
     }, bodyContent = {
         // pass list of quotes
