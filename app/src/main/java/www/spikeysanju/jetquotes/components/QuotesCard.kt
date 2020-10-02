@@ -66,7 +66,7 @@ fun QuotesCard(quote: Quote) {
 
         Spacer(Modifier.preferredHeight(12.dp))
 
-        Stack(modifier = Modifier.fillMaxSize()) {
+        Box(modifier = Modifier.fillMaxSize()) {
             Text(
                 modifier = Modifier.align(Alignment.CenterEnd).padding(12.dp),
                 text = quote.author.toString().ifBlank { " - Unknown" },

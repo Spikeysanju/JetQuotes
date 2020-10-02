@@ -47,13 +47,14 @@ import www.spikeysanju.jetquotes.utils.copyToClipboard
 fun DetailCard(quote: String, author: String) {
     val context = ContextAmbient.current
 
-    Stack(modifier = Modifier.fillMaxSize()) {
+    Box(modifier = Modifier.fillMaxSize()) {
 
         Column(
             modifier = Modifier.clickable(onClick = {
                 context.copyToClipboard(quote.plus("").plus("- $author"))
                 Toast.makeText(context, "Quote copied!", Toast.LENGTH_SHORT).show()
-            }).background(MaterialTheme.colors.primaryVariant).padding(40.dp).align(Alignment.Center).padding(12.dp),
+            }).background(MaterialTheme.colors.primaryVariant).padding(40.dp)
+                .align(Alignment.Center).padding(12.dp),
 
             ) {
 

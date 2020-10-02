@@ -31,14 +31,12 @@ package www.spikeysanju.jetquotes.view
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.Text
-import androidx.compose.foundation.layout.RowScope.align
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.setContent
 import androidx.compose.ui.text.style.TextAlign
@@ -76,7 +74,6 @@ fun DetailQuoteApp(quote: String, author: String) {
                 title = { Text(text = "JetQuotes", textAlign = TextAlign.Center, modifier = Modifier.fillMaxWidth()) },
                 backgroundColor = MaterialTheme.colors.primary,
                 contentColor = MaterialTheme.colors.onPrimary,
-                modifier = Modifier.align(Alignment.CenterVertically),
                 elevation = 0.dp
         )
     }, bodyContent = {

@@ -39,6 +39,6 @@ import www.spikeysanju.jetquotes.R
 
 @Composable
 fun QuotesThemeSwitch(onToggle: () -> Unit) {
-    val icon = vectorResource(R.drawable.ic_share)
+    val icon = vectorResource(R.drawable.ic_day)
     Icon(icon, Modifier.padding(end = 8.dp).clickable(onClick = onToggle))
 }

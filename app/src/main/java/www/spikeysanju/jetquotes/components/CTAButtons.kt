@@ -46,10 +46,12 @@ import www.spikeysanju.jetquotes.utils.shareToOthers
 @Composable
 fun CTAButtons(quote: String, author: String) {
     val context = ContextAmbient.current
-    Stack(modifier = Modifier.fillMaxSize()) {
-        Row(modifier = Modifier.background(MaterialTheme.colors.primaryVariant)
-            .align(Alignment.BottomEnd)
-            .padding(30.dp, 30.dp, 0.dp, 30.dp)) {
+    Box(modifier = Modifier.fillMaxSize()) {
+        Row(
+            modifier = Modifier.background(MaterialTheme.colors.primaryVariant)
+                .align(Alignment.BottomEnd)
+                .padding(30.dp, 30.dp, 0.dp, 30.dp)
+        ) {
 
             Button(
                 icon = vectorResource(id = R.drawable.ic_copy),
