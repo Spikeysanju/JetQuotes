@@ -30,6 +30,7 @@ package www.spikeysanju.jetquotes.view
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.foundation.Icon
 import androidx.compose.foundation.Text
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.MaterialTheme
@@ -39,9 +40,11 @@ import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.setContent
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.ui.tooling.preview.Preview
+import www.spikeysanju.jetquotes.R
 import www.spikeysanju.jetquotes.components.DetailCard
 import www.spikeysanju.jetquotes.ui.JetQuotesTheme
 
@@ -71,16 +74,23 @@ class QuoteDetails : AppCompatActivity() {
 fun DetailQuoteApp(quote: String, author: String) {
     Scaffold(topBar = {
         TopAppBar(
-                title = { Text(text = "JetQuotes", textAlign = TextAlign.Center, modifier = Modifier.fillMaxWidth()) },
-                backgroundColor = MaterialTheme.colors.primary,
-                contentColor = MaterialTheme.colors.onPrimary,
-                elevation = 0.dp
+            title = {
+                Text(
+                    text = "JetQuotes",
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.fillMaxWidth()
+                )
+            },
+            backgroundColor = MaterialTheme.colors.primary,
+            contentColor = MaterialTheme.colors.onPrimary,
+            navigationIcon = { Icon(asset = vectorResource(id = R.drawable.ic_back)) },
+            elevation = 0.dp
         )
     }, bodyContent = {
         // pass quote & author params to details card
         DetailCard(
-                quote = quote,
-                author = author
+            quote = quote,
+            author = author
         )
 
     })
