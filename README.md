@@ -7,13 +7,17 @@ A Quotes Application built to Demonstrate the use of Jetpack Compose for buildin
 
 ***Try latest JetQuotes App apk from below 👇***
 
-[![JetQuotes](https://img.shields.io/badge/JetQuotes🌈-APK-black.svg?style=for-the-badge&logo=android)](https://github.com/Spikeysanju/JetQuotes/releases/download/v1.0/jetquotes.apk)
+[![JetQuotes](https://img.shields.io/badge/JetQuotes🌈-APK-black.svg?style=for-the-badge&logo=android)](https://github.com/Spikeysanju/JetQuotes/releases/download/v1.1/jetquotes.apk)
 
 
 
 ## Built With 🛠
 - [Kotlin](https://kotlinlang.org/) - First class and official programming language for Android development.
 - [Jetpack Compose](https://developer.android.com/jetpack/compose) - Jetpack Compose is Android’s modern toolkit for building native UI.
+- [Coroutines](https://kotlinlang.org/docs/reference/coroutines-overview.html) - A coroutine is a concurrency design pattern that you can use on Android to simplify code that executes asynchronously.
+- [Flow](https://kotlinlang.org/docs/reference/coroutines/flow.html) - A flow is an asynchronous version of a Sequence, a type of collection whose values are lazily produced.
+- [Jetpack DataStore](https://developer.android.com/topic/libraries/architecture/datastore) - Jetpack DataStore is a data storage solution that allows you to store key-value pairs or typed objects with protocol buffers. DataStore uses Kotlin coroutines and Flow to store data asynchronously, consistently, and transactionally
+
 
 
 ## Contribute
