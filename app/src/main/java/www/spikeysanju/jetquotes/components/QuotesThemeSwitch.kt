@@ -28,9 +28,9 @@
 
 package www.spikeysanju.jetquotes.components
 
-import androidx.compose.foundation.Icon
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.vectorResource
