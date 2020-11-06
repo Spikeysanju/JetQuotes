@@ -115,12 +115,10 @@ class QuotesActivity : AppCompatActivity() {
     }
 
     companion object {
-
         fun launchQuoteDetails(context: Context?, quote: String, author: String) {
             val intent = Intent(context, QuoteDetails::class.java).apply {
                 putExtra("quote", quote)
                 putExtra("author", author)
-
             }
             context?.startActivity(intent)
         }
@@ -130,7 +128,6 @@ class QuotesActivity : AppCompatActivity() {
 
 @Composable
 fun getQuotes(): List<Quote>? {
-
     val context = ContextAmbient.current
     val moshi = Moshi.Builder()
         .add(KotlinJsonAdapterFactory())
@@ -138,12 +135,8 @@ fun getQuotes(): List<Quote>? {
 
     val listType = Types.newParameterizedType(List::class.java, Quote::class.java)
     val adapter: JsonAdapter<List<Quote>> = moshi.adapter(listType)
-
-    val file = "quotes.json"
-    val myJson = context.assets.open(file).bufferedReader().use { it.readText() }
-
+    val myJson = context.assets.open("quotes.json").bufferedReader().use { it.readText() }
     return adapter.fromJson(myJson)
-
 }
 
 @Composable
