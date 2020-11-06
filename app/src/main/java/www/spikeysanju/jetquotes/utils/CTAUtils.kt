@@ -47,3 +47,5 @@ fun Context.shareToOthers(quote: String) {
     intent.putExtra(Intent.EXTRA_TEXT, quote)
     startActivity(Intent.createChooser(intent, "Share via"))
 }
+
+
