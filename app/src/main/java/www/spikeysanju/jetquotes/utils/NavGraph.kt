@@ -26,18 +26,27 @@
  *
  */
 
-package www.spikeysanju.jetquotes.ui
+package www.spikeysanju.jetquotes.utils
 
+import androidx.navigation.NavController
+import androidx.navigation.compose.navigate
+import www.spikeysanju.jetquotes.utils.Destinations.QuoteDetails
 
-import androidx.compose.material.Typography
-import androidx.compose.ui.text.font.*
-import www.spikeysanju.jetquotes.R
+object Destinations {
+    const val Quotes = "quotes_list"
+    const val QuoteDetails = "quote_detail"
 
+    object QuoteDetailsArgs {
+        const val quote = "quote"
+        const val author = "author"
+    }
+}
 
-private val futura = FontFamily(
-        Font(R.font.futurabook),
-        Font(R.font.futuramedium, FontWeight.W500),
-        Font(R.font.futurabold, FontWeight.Bold))
-
-
-val typography = Typography(defaultFontFamily = futura)
+class Actions(navController: NavController){
+    val openQuoteDetails: (String, String ) -> Unit = { quote, author ->
+        navController.navigate("$QuoteDetails/$quote/$author")
+    }
+    val navigateUp: () -> Unit = {
+        navController.popBackStack()
+    }
+}

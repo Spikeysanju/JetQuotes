@@ -28,26 +28,24 @@
 
 package www.spikeysanju.jetquotes.components
 
-import androidx.compose.foundation.Text
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.MaterialTheme.typography
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.ContextAmbient
 import androidx.compose.ui.unit.dp
 import www.spikeysanju.jetquotes.model.Quote
-import www.spikeysanju.jetquotes.view.QuotesActivity.Companion.launchQuoteDetails
+import www.spikeysanju.jetquotes.utils.Actions
 
 @Composable
-fun QuotesCard(quote: Quote) {
-    val context = ContextAmbient.current
+fun QuotesCard(quote: Quote, actions: Actions) {
 
-    Column(modifier = Modifier.clickable(onClick = {
-        launchQuoteDetails(context, quote.quote.toString(), quote.author.toString())
+    Column(modifier = Modifier.wrapContentSize().padding(12.dp).clickable(onClick = {
+        actions.openQuoteDetails(quote.quote!!, quote.author!!)
 
     }).background(MaterialTheme.colors.primaryVariant).padding(12.dp)) {
 
@@ -64,7 +62,7 @@ fun QuotesCard(quote: Quote) {
             modifier = Modifier.padding(12.dp, 0.dp, 0.dp, 0.dp)
         )
 
-        Spacer(Modifier.preferredHeight(12.dp))
+        Spacer(Modifier.height(12.dp))
 
         Box(modifier = Modifier.fillMaxSize()) {
             Text(
@@ -73,7 +71,7 @@ fun QuotesCard(quote: Quote) {
                 style = typography.caption,
                 color = MaterialTheme.colors.onBackground
             )
-            Spacer(Modifier.preferredHeight(8.dp))
+            Spacer(Modifier.height(8.dp))
         }
 
     }

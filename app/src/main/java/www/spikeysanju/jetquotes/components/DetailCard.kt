@@ -29,23 +29,23 @@
 package www.spikeysanju.jetquotes.components
 
 import android.widget.Toast
-import androidx.compose.foundation.Text
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.MaterialTheme.typography
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.ContextAmbient
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import www.spikeysanju.jetquotes.utils.copyToClipboard
 
 @Composable
 fun DetailCard(quote: String, author: String) {
-    val context = ContextAmbient.current
+    val context = LocalContext.current
 
     Box(modifier = Modifier.fillMaxSize()) {
 
@@ -66,7 +66,7 @@ fun DetailCard(quote: String, author: String) {
                 textAlign = TextAlign.Center
             )
 
-            Spacer(Modifier.preferredHeight(16.dp))
+            Spacer(Modifier.height(16.dp))
 
             Text(
                 modifier = Modifier.align(Alignment.CenterHorizontally),
@@ -76,7 +76,7 @@ fun DetailCard(quote: String, author: String) {
                 textAlign = TextAlign.Center
             )
 
-            Spacer(Modifier.preferredHeight(16.dp))
+            Spacer(Modifier.height(16.dp))
 
             Text(
                 modifier = Modifier.align(Alignment.CenterHorizontally),
