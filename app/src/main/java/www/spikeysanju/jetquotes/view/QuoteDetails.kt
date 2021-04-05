@@ -28,48 +28,20 @@
 
 package www.spikeysanju.jetquotes.view
 
-import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.foundation.Text
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.setContent
-import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.ui.tooling.preview.Preview
 import www.spikeysanju.jetquotes.R
 import www.spikeysanju.jetquotes.components.DetailCard
 import www.spikeysanju.jetquotes.ui.JetQuotesTheme
 
-
-class QuoteDetails : AppCompatActivity() {
-    private var quote: String? = null
-    private var author: String? = null
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        // receive bundles here
-        quote = intent.getStringExtra("quote") ?: "No values for quote"
-        author = intent.getStringExtra("author") ?: "No values for author"
-
-        setContent {
-            JetQuotesTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(color = MaterialTheme.colors.background) {
-                    DetailQuoteApp(quote = quote!!, author = author!!) {
-                        onBackPressed()
-                    }
-                }
-            }
-        }
-    }
-}
-
 @Composable
-fun DetailQuoteApp(quote: String, author: String, onback: () -> Unit) {
+fun DetailQuoteApp(quote: String, author: String, onBackPress: () -> Unit) {
     Scaffold(topBar = {
         TopAppBar(
             title = {
@@ -82,13 +54,14 @@ fun DetailQuoteApp(quote: String, author: String, onback: () -> Unit) {
             backgroundColor = MaterialTheme.colors.primary,
             contentColor = MaterialTheme.colors.onPrimary,
             navigationIcon = {
-                IconButton(onClick = onback) {
-                    Icon(asset = vectorResource(id = R.drawable.ic_back))
+                IconButton(onClick = onBackPress) {
+                    Icon(painter = painterResource(id = R.drawable.ic_back),
+                    contentDescription = "")
                 }
             },
             elevation = 0.dp
         )
-    }, bodyContent = {
+    }, content = {
         // pass quote & author params to details card
         DetailCard(
             quote = quote,

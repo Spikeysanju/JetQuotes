@@ -28,26 +28,21 @@
 
 package www.spikeysanju.jetquotes.view
 
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
+import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.compose.foundation.Text
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Surface
-import androidx.compose.material.TopAppBar
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.ContextAmbient
-import androidx.compose.ui.platform.setContent
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.LifecycleCoroutineScope
 import androidx.lifecycle.lifecycleScope
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
@@ -57,12 +52,13 @@ import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
+import www.spikeysanju.jetquotes.app.JetQuoteApp
 import www.spikeysanju.jetquotes.components.QuotesList
 import www.spikeysanju.jetquotes.components.QuotesThemeSwitch
 import www.spikeysanju.jetquotes.data.preference.PrefsManager
 import www.spikeysanju.jetquotes.data.preference.UiMode
 import www.spikeysanju.jetquotes.model.Quote
-import www.spikeysanju.jetquotes.ui.JetQuotesTheme
+import www.spikeysanju.jetquotes.utils.Actions
 
 
 class QuotesActivity : AppCompatActivity() {
@@ -71,56 +67,8 @@ class QuotesActivity : AppCompatActivity() {
     @InternalCoroutinesApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        val prefsManager = PrefsManager(context = this)
-        lifecycleScope.launch {
-            prefsManager.uiModeFlow.collect {
-                when (it) {
-                    UiMode.DARK -> {
-                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-                    }
-                    UiMode.LIGHT -> {
-                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-                    }
-                }
-            }
-        }
-
         setContent {
-            val currentTheme = isSystemInDarkTheme()
-            val darkMode by prefsManager.uiModeFlow.map { uiMode ->
-                when (uiMode) {
-                    UiMode.DARK -> {
-                        true
-                    }
-                    UiMode.LIGHT -> {
-                        false
-                    }
-                }
-            }.collectAsState(initial = currentTheme)
-
-            val toggleTheme: () -> Unit = {
-                lifecycleScope.launch {
-                    prefsManager.setUiMode(if (darkMode) UiMode.LIGHT else UiMode.DARK)
-                }
-            }
-
-            JetQuotesTheme(darkMode) {
-                // A surface container using the 'background' color from the theme
-                Surface(color = MaterialTheme.colors.background) {
-                    App(toggleTheme)
-                }
-            }
-        }
-    }
-
-    companion object {
-        fun launchQuoteDetails(context: Context?, quote: String, author: String) {
-            val intent = Intent(context, QuoteDetails::class.java).apply {
-                putExtra("quote", quote)
-                putExtra("author", author)
-            }
-            context?.startActivity(intent)
+            JetQuoteApp(lifecycleScope = lifecycleScope)
         }
     }
 }
@@ -128,7 +76,7 @@ class QuotesActivity : AppCompatActivity() {
 
 @Composable
 fun getQuotes(): List<Quote>? {
-    val context = ContextAmbient.current
+    val context = LocalContext.current
     val moshi = Moshi.Builder()
         .add(KotlinJsonAdapterFactory())
         .build()
@@ -139,8 +87,42 @@ fun getQuotes(): List<Quote>? {
     return adapter.fromJson(myJson)
 }
 
+
 @Composable
-fun App(toggleTheme: () -> Unit) {
+fun App(lifecycleScope: LifecycleCoroutineScope, actions: Actions) {
+
+    val prefsManager = PrefsManager(context = LocalContext.current)
+    lifecycleScope.launch {
+        prefsManager.uiModeFlow.collect {
+            when (it) {
+                UiMode.DARK -> {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                }
+                UiMode.LIGHT -> {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                }
+            }
+        }
+    }
+
+    val currentTheme = isSystemInDarkTheme()
+    val darkMode by prefsManager.uiModeFlow.map { uiMode ->
+        when (uiMode) {
+            UiMode.DARK -> {
+                true
+            }
+            UiMode.LIGHT -> {
+                false
+            }
+        }
+    }.collectAsState(initial = currentTheme)
+
+    val toggleTheme: () -> Unit = {
+        lifecycleScope.launch {
+            prefsManager.setUiMode(if (darkMode) UiMode.LIGHT else UiMode.DARK)
+        }
+    }
+
     Scaffold(topBar = {
         TopAppBar(
             title = {
@@ -157,12 +139,11 @@ fun App(toggleTheme: () -> Unit) {
                 QuotesThemeSwitch(toggleTheme)
             }
         )
-    }, bodyContent = {
+    }, content = {
         // pass list of quotes
-        getQuotes()?.let { quote -> QuotesList(quote) }
+        getQuotes()?.let { quote -> QuotesList(quote, actions) }
     })
 }
-
 
 
 
