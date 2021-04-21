@@ -95,5 +95,5 @@ dependencies {
     implementation("com.squareup.moshi:moshi-kotlin:1.11.0")
 
     // Preferences DataStore
-    implementation "androidx.datastore:datastore-preferences:1.0.0-alpha02"
+    implementation "androidx.datastore:datastore-preferences:1.0.0-beta01"
 }
