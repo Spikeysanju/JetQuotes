@@ -26,42 +26,52 @@
  *
  */
 
-package www.spikeysanju.jetquotes.app
+package www.spikeysanju.jetquotes.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
-import androidx.lifecycle.LifecycleCoroutineScope
+import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.navArgument
+import androidx.navigation.compose.navigate
 import androidx.navigation.compose.rememberNavController
-import www.spikeysanju.jetquotes.ui.JetQuotesTheme
-import www.spikeysanju.jetquotes.utils.Actions
-import www.spikeysanju.jetquotes.utils.Destinations.QuoteDetails
-import www.spikeysanju.jetquotes.utils.Destinations.QuoteDetailsArgs
-import www.spikeysanju.jetquotes.utils.Destinations.Quotes
-import www.spikeysanju.jetquotes.view.App
-import www.spikeysanju.jetquotes.view.DetailQuoteApp
+import www.spikeysanju.jetquotes.view.details.DetailScreen
+import www.spikeysanju.jetquotes.view.quotes.QuotesListScreen
+import www.spikeysanju.jetquotes.view.viewModel.MainViewModel
 
 @Composable
-fun JetQuoteApp(lifecycleScope: LifecycleCoroutineScope) {
+fun JetQuotesMain(viewModel: MainViewModel, toggleTheme: () -> Unit) {
     val navController = rememberNavController()
-    val actions = remember(navController) {
-        Actions(navController = navController)
-    }
+    val actions = remember(navController) { MainActions(navController) }
 
-    JetQuotesTheme {
-        NavHost(navController = navController, startDestination = Quotes) {
-            composable(Quotes) {
-                App(lifecycleScope = (lifecycleScope), actions = actions)
-
-            }
-            composable("$QuoteDetails/{${QuoteDetailsArgs.quote}}/{${QuoteDetailsArgs.author}}") { navBackStackEntry ->
-                DetailQuoteApp(
-                    quote = navBackStackEntry.arguments?.getString(QuoteDetailsArgs.quote) ?: "",
-                    author = navBackStackEntry.arguments?.getString(QuoteDetailsArgs.author) ?: "",
-                    onBackPress = actions.navigateUp
-                )
-            }
+    NavHost(navController, startDestination = Screen.Home.route) {
+        composable(Screen.Home.route) {
+            QuotesListScreen(viewModel, toggleTheme, actions)
         }
+        composable(
+            "${Screen.Details.route}/{quote}/{author}",
+            arguments = listOf(
+                navArgument("quote") { type = NavType.StringType },
+                navArgument("author") {
+                    type = NavType.StringType
+                })
+        ) {
+            DetailScreen(
+                actions.upPress,
+                it.arguments?.getString("quote") ?: "",
+                it.arguments?.getString("author") ?: ""
+            )
+        }
+    }
+}
+
+class MainActions(navController: NavHostController) {
+    val upPress: () -> Unit = {
+        navController.navigateUp()
+    }
+    val quoteDetails: (String, String) -> Unit = { quote, author ->
+        navController.navigate("${Screen.Details.route}/$quote/$author")
     }
 }

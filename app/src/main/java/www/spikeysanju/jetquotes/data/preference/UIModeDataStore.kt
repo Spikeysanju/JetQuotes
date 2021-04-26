@@ -29,49 +29,46 @@
 package www.spikeysanju.jetquotes.data.preference
 
 import android.content.Context
-import androidx.datastore.preferences.createDataStore
-import androidx.datastore.preferences.edit
-import androidx.datastore.preferences.emptyPreferences
-import androidx.datastore.preferences.preferencesKey
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.booleanPreferencesKey
+import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
-import java.io.IOException
 
-enum class UiMode {
-    LIGHT, DARK
+abstract class PrefsDataStore(context: Context, fileName: String) {
+    private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(fileName)
+    val mDataStore: DataStore<Preferences> = context.dataStore
 }
 
-class PrefsManager(context: Context) {
 
-    private val dataStore = context.createDataStore(name = "jet_quotes_prefs")
+class UIModeDataStore(context: Context) : PrefsDataStore(context = context, PREF_FILE_UI_MODE),
+    UIModeImpl {
 
-    val uiModeFlow: Flow<UiMode> = dataStore.data
-        .catch {
-            if (it is IOException) {
-                it.printStackTrace()
-                emit(emptyPreferences())
-            } else {
-                throw it
-            }
-        }
-        .map { preference ->
-            when (preference[IS_DARK_MODE] ?: false) {
-                true -> UiMode.DARK
-                false -> UiMode.LIGHT
-            }
+    // used to get the data from datastore
+    override val uiMode: Flow<Boolean>
+        get() = mDataStore.data.map { preferences ->
+            val uiMode = preferences[UI_MODE_KEY] ?: false
+            uiMode
         }
 
-    suspend fun setUiMode(uiMode: UiMode) {
-        dataStore.edit { preferences ->
-            preferences[IS_DARK_MODE] = when (uiMode) {
-                UiMode.LIGHT -> false
-                UiMode.DARK -> true
-            }
+
+    // used to save the ui preference to datastore
+    override suspend fun saveToDataStore(isNightMode: Boolean) {
+        mDataStore.edit { preferences ->
+            preferences[UI_MODE_KEY] = isNightMode
         }
     }
+
 
     companion object {
-        val IS_DARK_MODE = preferencesKey<Boolean>("dark_mode")
+        private const val PREF_FILE_UI_MODE = "ui_mode_preference"
+        private val UI_MODE_KEY = booleanPreferencesKey("ui_mode")
     }
+}
+
+interface UIModeImpl {
+    val uiMode: Flow<Boolean>
+    suspend fun saveToDataStore(isNightMode: Boolean)
 }

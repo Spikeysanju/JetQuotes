@@ -26,23 +26,12 @@
  *
  */
 
-package www.spikeysanju.jetquotes.components
+package www.spikeysanju.jetquotes.navigation
 
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
-import www.spikeysanju.jetquotes.model.Quote
-import www.spikeysanju.jetquotes.navigation.MainActions
+import androidx.annotation.StringRes
+import www.spikeysanju.jetquotes.R
 
-
-@Composable
-fun QuotesList(quotes: List<Quote>, actions: MainActions) {
-    LazyColumn(modifier = Modifier.padding(36.dp, 12.dp, 0.dp, 12.dp)) {
-        items(items = quotes) { item ->
-            QuotesCard(item, actions)
-        }
-    }
+sealed class Screen(val route: String, @StringRes val resourceId: Int) {
+    object Home : Screen("quotes", R.string.quotes)
+    object Details : Screen("details", R.string.details)
 }
