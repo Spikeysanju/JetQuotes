@@ -30,9 +30,8 @@
 package www.spikeysanju.jetquotes.app
 
 import android.app.Application
-class JetQuotes : Application() {
-    override fun onCreate() {
-        super.onCreate()
-    }
-}
+import dagger.hilt.android.HiltAndroidApp
+
+@HiltAndroidApp
+class JetQuotes : Application()
 

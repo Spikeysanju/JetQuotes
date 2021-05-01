@@ -26,12 +26,14 @@
  *
  */
 
-package www.spikeysanju.jetquotes.view.quotes
+package www.spikeysanju.jetquotes.view.favourites
 
-import android.annotation.SuppressLint
-import android.widget.Toast
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
@@ -39,56 +41,53 @@ import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import www.spikeysanju.jetquotes.components.QuotesList
-import www.spikeysanju.jetquotes.components.QuotesThemeSwitch
-import www.spikeysanju.jetquotes.navigation.MainActions
-import www.spikeysanju.jetquotes.utils.ViewState
+import www.spikeysanju.jetquotes.R
+import www.spikeysanju.jetquotes.utils.FavouriteViewState
 import www.spikeysanju.jetquotes.view.viewModel.MainViewModel
 
-@SuppressLint("CoroutineCreationDuringComposition")
 @Composable
-fun QuotesListScreen(
-    viewModel: MainViewModel,
-    toggleTheme: () -> Unit,
-    actions: MainActions,
-) {
+fun FavouritesScreen(viewModel: MainViewModel, upPress: () -> Unit) {
     Scaffold(topBar = {
         TopAppBar(
             title = {
                 Text(
-                    text = "JetQuotes",
+                    text = "Favourites",
                     textAlign = TextAlign.Center,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .clickable {
-                            actions.gotoFavourites
-                        }
+                        .padding(end = 36.dp)
                 )
             },
             backgroundColor = MaterialTheme.colors.primary,
             contentColor = MaterialTheme.colors.onPrimary,
-            elevation = 0.dp,
-            actions = {
-                QuotesThemeSwitch(toggleTheme)
-            }
+            navigationIcon = {
+                IconButton(onClick = upPress) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_back),
+                        contentDescription = "Back Icon"
+                    )
+                }
+            },
+            elevation = 0.dp
         )
     }, content = {
-        val context = LocalContext.current
-        when (val result = viewModel.uiState.collectAsState().value) {
-            is ViewState.Error -> {
-                Toast.makeText(
-                    context,
-                    "Error ${result.exception}",
-                    Toast.LENGTH_SHORT
-                ).show()
+        // pass quote & author params to details card
+        when (val result = viewModel.favState.collectAsState().value) {
+            is FavouriteViewState.Empty -> {
             }
-            is ViewState.Success -> {
-                // pass list of quotes
-                QuotesList(quotes = result.quote, actions = actions)
+            is FavouriteViewState.Loading -> {
+            }
+            is FavouriteViewState.Success -> {
+                LazyColumn {
+                    items(result.quote) {
+                        Text(text = "${it.quote}")
+                    }
+                }
             }
         }
+
     })
 }

@@ -26,13 +26,16 @@
  *
  */
 
-package www.spikeysanju.jetquotes.navigation
+package www.spikeysanju.jetquotes.utils
 
-import androidx.annotation.StringRes
-import www.spikeysanju.jetquotes.R
+import www.spikeysanju.jetquotes.model.Favourite
 
-sealed class Screen(val route: String, @StringRes val resourceId: Int) {
-    object Home : Screen("quotes", R.string.quotes)
-    object Details : Screen("details", R.string.details)
-    object Favourites : Screen("favourites", R.string.favourites)
+sealed class FavouriteViewState {
+
+    // Represents different states for quotes
+    object Empty : FavouriteViewState()
+    object Loading : FavouriteViewState()
+    data class Success(val quote: List<Favourite>) : FavouriteViewState()
+    data class Error(val exception: Throwable) : FavouriteViewState()
+
 }

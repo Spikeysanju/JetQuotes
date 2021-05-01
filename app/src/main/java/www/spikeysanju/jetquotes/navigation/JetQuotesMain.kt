@@ -38,8 +38,14 @@ import androidx.navigation.compose.navArgument
 import androidx.navigation.compose.navigate
 import androidx.navigation.compose.rememberNavController
 import www.spikeysanju.jetquotes.view.details.DetailScreen
+import www.spikeysanju.jetquotes.view.favourites.FavouritesScreen
 import www.spikeysanju.jetquotes.view.quotes.QuotesListScreen
 import www.spikeysanju.jetquotes.view.viewModel.MainViewModel
+
+object EndPoints {
+    const val QUOTE = "quote"
+    const val AUTHOR = "author"
+}
 
 @Composable
 fun JetQuotesMain(viewModel: MainViewModel, toggleTheme: () -> Unit) {
@@ -47,22 +53,30 @@ fun JetQuotesMain(viewModel: MainViewModel, toggleTheme: () -> Unit) {
     val actions = remember(navController) { MainActions(navController) }
 
     NavHost(navController, startDestination = Screen.Home.route) {
+        // Quotes List
         composable(Screen.Home.route) {
             QuotesListScreen(viewModel, toggleTheme, actions)
         }
+
+        // Quotes Details
         composable(
             "${Screen.Details.route}/{quote}/{author}",
             arguments = listOf(
-                navArgument("quote") { type = NavType.StringType },
-                navArgument("author") {
+                navArgument(EndPoints.QUOTE) { type = NavType.StringType },
+                navArgument(EndPoints.AUTHOR) {
                     type = NavType.StringType
                 })
         ) {
             DetailScreen(
                 actions.upPress,
-                it.arguments?.getString("quote") ?: "",
-                it.arguments?.getString("author") ?: ""
+                it.arguments?.getString(EndPoints.QUOTE) ?: "",
+                it.arguments?.getString(EndPoints.AUTHOR) ?: ""
             )
+        }
+
+        // Favourites
+        composable(Screen.Favourites.route) {
+            FavouritesScreen(viewModel, actions.upPress)
         }
     }
 }
@@ -71,7 +85,12 @@ class MainActions(navController: NavHostController) {
     val upPress: () -> Unit = {
         navController.navigateUp()
     }
-    val quoteDetails: (String, String) -> Unit = { quote, author ->
+
+    val gotoDetails: (String, String) -> Unit = { quote, author ->
         navController.navigate("${Screen.Details.route}/$quote/$author")
+    }
+
+    val gotoFavourites: () -> Unit = {
+        navController.navigate(Screen.Favourites.route)
     }
 }

@@ -26,13 +26,15 @@
  *
  */
 
-package www.spikeysanju.jetquotes.navigation
+package www.spikeysanju.jetquotes.model
 
-import androidx.annotation.StringRes
-import www.spikeysanju.jetquotes.R
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
-sealed class Screen(val route: String, @StringRes val resourceId: Int) {
-    object Home : Screen("quotes", R.string.quotes)
-    object Details : Screen("details", R.string.details)
-    object Favourites : Screen("favourites", R.string.favourites)
-}
+@Entity(tableName = "favourites")
+data class Favourite(
+    val quote: String? = "",
+    val author: String? = "",
+    @PrimaryKey(autoGenerate = true)
+    val id: Int = 0
+)

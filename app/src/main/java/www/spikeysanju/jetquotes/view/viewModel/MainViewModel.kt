@@ -36,27 +36,38 @@ import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
 import www.spikeysanju.jetquotes.data.preference.UIModeDataStore
+import www.spikeysanju.jetquotes.model.Favourite
 import www.spikeysanju.jetquotes.model.Quote
+import www.spikeysanju.jetquotes.repository.MainRepository
+import www.spikeysanju.jetquotes.utils.FavouriteViewState
 import www.spikeysanju.jetquotes.utils.UIModeState
 import www.spikeysanju.jetquotes.utils.ViewState
+import javax.inject.Inject
 
-class MainViewModel(application: Application) : AndroidViewModel(application) {
+@HiltViewModel
+class MainViewModel @Inject constructor(application: Application, val repository: MainRepository) :
+    AndroidViewModel(application) {
 
     // init UIModeDataStore
     private val uiModeDataStore = UIModeDataStore(application)
 
     // Backing property to avoid state updates from other classes
     private val _uiState = MutableStateFlow<ViewState>(ViewState.Loading)
+    private val _favState = MutableStateFlow<FavouriteViewState>(FavouriteViewState.Loading)
     private val _uiModeState = MutableStateFlow<UIModeState>(UIModeState.Default(false))
 
     // UI collects from this StateFlow to get it's state update
     val uiState = _uiState.asStateFlow()
     val uiMode = _uiModeState.asStateFlow()
+    val favState = _favState.asStateFlow()
 
     // get all quotes from assets folder
     fun getAllQuotes(application: Application) = viewModelScope.launch {
@@ -91,5 +102,33 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         viewModelScope.launch(IO) {
             uiModeDataStore.saveToDataStore(isNightMode)
         }
+    }
+
+    // get all favourites
+    init {
+        viewModelScope.launch {
+            repository.getAllFavourites().distinctUntilChanged().collect { result ->
+                if (result.isNullOrEmpty()) {
+                    _favState.value = FavouriteViewState.Empty
+                } else {
+                    _favState.value = FavouriteViewState.Success(result)
+                }
+            }
+        }
+    }
+
+    // insert favourite
+    fun insertFavourite(favourite: Favourite) = viewModelScope.launch {
+        repository.insert(favourite)
+    }
+
+    // update favourite
+    fun updateFavourite(favourite: Favourite) = viewModelScope.launch {
+        repository.update(favourite)
+    }
+
+    // delete favourite
+    fun deleteFavourite(id: Int) = viewModelScope.launch {
+        repository.deleteByID(id)
     }
 }
