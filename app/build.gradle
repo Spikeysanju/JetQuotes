@@ -29,6 +29,8 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
 }
 
 android {
@@ -94,4 +96,24 @@ dependencies {
     implementation "androidx.datastore:datastore-preferences:1.0.0-beta01"
     implementation "androidx.lifecycle:lifecycle-viewmodel-compose:1.0.0-alpha04"
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.3.1"
+
+    // Room
+    implementation "androidx.room:room-runtime:$roomVersion"
+    kapt "androidx.room:room-compiler:$roomVersion"
+    implementation "androidx.room:room-ktx:$roomVersion"
+
+    // Coroutines
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion"
+
+
+    // Dagger Hilt
+    implementation "com.google.dagger:hilt-android:$hiltVersion"
+    kapt "com.google.dagger:hilt-android-compiler:$hiltVersion"
+    implementation "androidx.hilt:hilt-lifecycle-viewmodel:$hiltAndroidXVersion"
+    kapt "androidx.hilt:hilt-compiler:$hiltAndroidXVersion"
+    implementation "androidx.hilt:hilt-navigation-compose:1.0.0-alpha01"
+    implementation "androidx.hilt:hilt-common:1.0.0-beta01"
+    kapt "com.google.dagger:hilt-compiler:2.33-beta"
+
 }
