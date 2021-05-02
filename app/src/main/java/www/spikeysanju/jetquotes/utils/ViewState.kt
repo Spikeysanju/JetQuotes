@@ -28,25 +28,12 @@
 
 package www.spikeysanju.jetquotes.utils
 
-import androidx.navigation.NavController
-import androidx.navigation.compose.navigate
-import www.spikeysanju.jetquotes.utils.Destinations.QuoteDetails
+import www.spikeysanju.jetquotes.model.Quote
 
-object Destinations {
-    const val Quotes = "quotes_list"
-    const val QuoteDetails = "quote_detail"
-
-    object QuoteDetailsArgs {
-        const val quote = "quote"
-        const val author = "author"
-    }
-}
-
-class Actions(navController: NavController){
-    val openQuoteDetails: (String, String ) -> Unit = { quote, author ->
-        navController.navigate("$QuoteDetails/$quote/$author")
-    }
-    val navigateUp: () -> Unit = {
-        navController.popBackStack()
-    }
+sealed class ViewState {
+    // Represents different states for quotes
+    object Empty : ViewState()
+    object Loading : ViewState()
+    data class Success(val quote: List<Quote>) : ViewState()
+    data class Error(val exception: Throwable) : ViewState()
 }

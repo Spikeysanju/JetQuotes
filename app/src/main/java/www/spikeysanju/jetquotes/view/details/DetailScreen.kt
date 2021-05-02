@@ -26,37 +26,45 @@
  *
  */
 
-package www.spikeysanju.jetquotes.view
+package www.spikeysanju.jetquotes.view.details
 
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material.*
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Scaffold
+import androidx.compose.material.Text
+import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import www.spikeysanju.jetquotes.R
 import www.spikeysanju.jetquotes.components.DetailCard
-import www.spikeysanju.jetquotes.ui.JetQuotesTheme
 
 @Composable
-fun DetailQuoteApp(quote: String, author: String, onBackPress: () -> Unit) {
+fun DetailScreen(upPress: () -> Unit, quote: String, author: String) {
     Scaffold(topBar = {
         TopAppBar(
             title = {
                 Text(
-                    text = "JetQuotes",
+                    text = "Details",
                     textAlign = TextAlign.Center,
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(end = 36.dp)
                 )
             },
             backgroundColor = MaterialTheme.colors.primary,
             contentColor = MaterialTheme.colors.onPrimary,
             navigationIcon = {
-                IconButton(onClick = onBackPress) {
-                    Icon(painter = painterResource(id = R.drawable.ic_back),
-                    contentDescription = "")
+                IconButton(onClick = upPress) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_back),
+                        contentDescription = "Back Icon"
+                    )
                 }
             },
             elevation = 0.dp
@@ -67,14 +75,5 @@ fun DetailQuoteApp(quote: String, author: String, onBackPress: () -> Unit) {
             quote = quote,
             author = author
         )
-
     })
-}
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    JetQuotesTheme {
-        DetailCard(quote = "All is well", author = "Sanju")
-    }
 }

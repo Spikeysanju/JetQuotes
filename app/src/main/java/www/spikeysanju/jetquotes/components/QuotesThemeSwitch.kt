@@ -29,6 +29,7 @@
 package www.spikeysanju.jetquotes.components
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Icon
 import androidx.compose.runtime.Composable
@@ -39,6 +40,16 @@ import www.spikeysanju.jetquotes.R
 
 @Composable
 fun QuotesThemeSwitch(onToggle: () -> Unit) {
-    val icon = painterResource(R.drawable.ic_day)
-    Icon(painter = icon, contentDescription = "", Modifier.padding(end = 8.dp).clickable(onClick = onToggle))
+
+    val icon = when {
+        isSystemInDarkTheme() -> painterResource(id = R.drawable.ic_night)
+        else -> painterResource(id = R.drawable.ic_day)
+    }
+
+    Icon(
+        painter = icon, contentDescription = "",
+        Modifier
+            .padding(end = 8.dp)
+            .clickable(onClick = onToggle)
+    )
 }

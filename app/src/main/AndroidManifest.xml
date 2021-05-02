@@ -40,7 +40,7 @@
         android:theme="@style/Theme.JetQuotes">
 
         <activity
-            android:name=".view.QuotesActivity"
+            android:name=".view.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/Theme.JetQuotes.NoActionBar">
             <intent-filter>

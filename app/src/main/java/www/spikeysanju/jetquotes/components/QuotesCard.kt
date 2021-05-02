@@ -30,7 +30,13 @@ package www.spikeysanju.jetquotes.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.MaterialTheme.typography
 import androidx.compose.material.Text
@@ -39,15 +45,19 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import www.spikeysanju.jetquotes.model.Quote
-import www.spikeysanju.jetquotes.utils.Actions
+import www.spikeysanju.jetquotes.navigation.MainActions
 
 @Composable
-fun QuotesCard(quote: Quote, actions: Actions) {
+fun QuotesCard(quote: Quote, actions: MainActions) {
 
-    Column(modifier = Modifier.wrapContentSize().padding(12.dp).clickable(onClick = {
-        actions.openQuoteDetails(quote.quote!!, quote.author!!)
-
-    }).background(MaterialTheme.colors.primaryVariant).padding(12.dp)) {
+    Column(modifier = Modifier
+        .wrapContentSize()
+        .padding(12.dp)
+        .clickable(onClick = {
+            actions.quoteDetails(quote.quote!!, quote.author!!)
+        })
+        .background(MaterialTheme.colors.primaryVariant)
+        .padding(12.dp)) {
 
         Text(
             text = """ " """,
@@ -66,7 +76,9 @@ fun QuotesCard(quote: Quote, actions: Actions) {
 
         Box(modifier = Modifier.fillMaxSize()) {
             Text(
-                modifier = Modifier.align(Alignment.CenterEnd).padding(12.dp),
+                modifier = Modifier
+                    .align(Alignment.CenterEnd)
+                    .padding(12.dp),
                 text = quote.author.toString().ifBlank { " - Unknown" },
                 style = typography.caption,
                 color = MaterialTheme.colors.onBackground

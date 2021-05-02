@@ -31,7 +31,12 @@ package www.spikeysanju.jetquotes.components
 import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.MaterialTheme.typography
 import androidx.compose.material.Text
@@ -48,13 +53,22 @@ fun DetailCard(quote: String, author: String) {
     val context = LocalContext.current
 
     Box(modifier = Modifier.fillMaxSize()) {
-
         Column(
-            modifier = Modifier.clickable(onClick = {
-                context.copyToClipboard(quote.plus("").plus("- $author"))
-                Toast.makeText(context, "Quote copied!", Toast.LENGTH_SHORT).show()
-            }).background(MaterialTheme.colors.primaryVariant).padding(40.dp)
-                .align(Alignment.Center).padding(12.dp),
+            modifier = Modifier
+                .clickable(onClick = {
+                    context.copyToClipboard(
+                        quote
+                            .plus("")
+                            .plus("- $author")
+                    )
+                    Toast
+                        .makeText(context, "Quote copied!", Toast.LENGTH_SHORT)
+                        .show()
+                })
+                .background(MaterialTheme.colors.primaryVariant)
+                .padding(40.dp)
+                .align(Alignment.Center)
+                .padding(12.dp),
 
             ) {
 
