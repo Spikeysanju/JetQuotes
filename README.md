@@ -7,7 +7,7 @@ A Quotes Application built to Demonstrate the use of Jetpack Compose for buildin
 
 ***Try latest JetQuotes App apk from below 👇***
 
-[![JetQuotes](https://img.shields.io/badge/JetQuotes🌈-APK-black.svg?style=for-the-badge&logo=android)](https://github.com/Spikeysanju/JetQuotes/releases/download/v1.1/jetquotes.apk)
+[![JetQuotes](https://img.shields.io/badge/JetQuotes🌈-APK-black.svg?style=for-the-badge&logo=android)](https://github.com/Spikeysanju/JetQuotes/releases/download/v1.2/jetquotes.apk)
 
 
 
