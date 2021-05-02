@@ -69,7 +69,7 @@ fun TopBar(title: String, onToggle: () -> Unit, onFavouritesClick: () -> Unit) {
             Text(
                 text = title,
                 style = typography.h5,
-                color = MaterialTheme.colors.secondaryVariant,
+                color = MaterialTheme.colors.onPrimary,
                 modifier = Modifier.padding(start = 16.dp)
             )
             Row(modifier = Modifier.wrapContentSize(), Arrangement.End) {
@@ -82,7 +82,7 @@ fun TopBar(title: String, onToggle: () -> Unit, onFavouritesClick: () -> Unit) {
                     Icon(
                         painter = settingsIcon,
                         contentDescription = "Favourites Icon",
-                        tint = MaterialTheme.colors.secondaryVariant
+                        tint = MaterialTheme.colors.onPrimary
                     )
                 }
 
@@ -94,7 +94,7 @@ fun TopBar(title: String, onToggle: () -> Unit, onFavouritesClick: () -> Unit) {
                     Icon(
                         painter = toggleIcon,
                         contentDescription = "Day/Night Icon",
-                        tint = MaterialTheme.colors.secondaryVariant
+                        tint = MaterialTheme.colors.onPrimary
                     )
                 }
 
@@ -116,14 +116,14 @@ fun TopBarWithBack(title: String, onBackClick: () -> Unit) {
             Icon(
                 imageVector = Icons.Default.ArrowBack,
                 contentDescription = "Back Icon",
-                tint = MaterialTheme.colors.secondaryVariant
+                tint = MaterialTheme.colors.onPrimary
             )
         }
 
         Text(
             text = title,
             style = typography.h6,
-            color = MaterialTheme.colors.secondaryVariant,
+            color = MaterialTheme.colors.onPrimary,
             modifier = Modifier.padding(start = 16.dp)
         )
 

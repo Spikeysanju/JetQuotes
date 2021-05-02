@@ -28,24 +28,14 @@
 
 package www.spikeysanju.jetquotes.view.favourites
 
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
-import www.spikeysanju.jetquotes.R
 import www.spikeysanju.jetquotes.components.QuotesCard
+import www.spikeysanju.jetquotes.components.TopBarWithBack
 import www.spikeysanju.jetquotes.navigation.MainActions
 import www.spikeysanju.jetquotes.utils.FavouriteViewState
 import www.spikeysanju.jetquotes.view.viewModel.MainViewModel
@@ -53,28 +43,11 @@ import www.spikeysanju.jetquotes.view.viewModel.MainViewModel
 @Composable
 fun FavouritesScreen(viewModel: MainViewModel, actions: MainActions) {
     Scaffold(topBar = {
-        TopAppBar(
-            title = {
-                Text(
-                    text = "Favourites",
-                    textAlign = TextAlign.Center,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(end = 36.dp)
-                )
-            },
-            backgroundColor = MaterialTheme.colors.primary,
-            contentColor = MaterialTheme.colors.onPrimary,
-            navigationIcon = {
-                IconButton(onClick = actions.upPress) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_back),
-                        contentDescription = "Back Icon"
-                    )
-                }
-            },
-            elevation = 0.dp
-        )
+
+        TopBarWithBack(
+            title = "JetQuotes",
+            onBackClick = { actions.upPress() })
+
     }, content = {
         // pass quote & author params to details card
         when (val result = viewModel.favState.collectAsState().value) {

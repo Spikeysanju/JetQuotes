@@ -53,7 +53,7 @@ fun JetQuotesMain(viewModel: MainViewModel, toggleTheme: () -> Unit) {
     val navController = rememberNavController()
     val actions = remember(navController) { MainActions(navController) }
 
-    NavHost(navController, startDestination = Screen.Favourites.route) {
+    NavHost(navController, startDestination = Screen.Home.route) {
         // Quotes List
         composable(Screen.Home.route) {
             QuotesListScreen(viewModel, toggleTheme, actions)
