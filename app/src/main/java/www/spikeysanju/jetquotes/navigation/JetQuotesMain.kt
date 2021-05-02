@@ -43,6 +43,7 @@ import www.spikeysanju.jetquotes.view.quotes.QuotesListScreen
 import www.spikeysanju.jetquotes.view.viewModel.MainViewModel
 
 object EndPoints {
+    const val ID = "id"
     const val QUOTE = "quote"
     const val AUTHOR = "author"
 }
@@ -52,7 +53,7 @@ fun JetQuotesMain(viewModel: MainViewModel, toggleTheme: () -> Unit) {
     val navController = rememberNavController()
     val actions = remember(navController) { MainActions(navController) }
 
-    NavHost(navController, startDestination = Screen.Home.route) {
+    NavHost(navController, startDestination = Screen.Favourites.route) {
         // Quotes List
         composable(Screen.Home.route) {
             QuotesListScreen(viewModel, toggleTheme, actions)
@@ -68,6 +69,7 @@ fun JetQuotesMain(viewModel: MainViewModel, toggleTheme: () -> Unit) {
                 })
         ) {
             DetailScreen(
+                viewModel,
                 actions.upPress,
                 it.arguments?.getString(EndPoints.QUOTE) ?: "",
                 it.arguments?.getString(EndPoints.AUTHOR) ?: ""
@@ -76,7 +78,7 @@ fun JetQuotesMain(viewModel: MainViewModel, toggleTheme: () -> Unit) {
 
         // Favourites
         composable(Screen.Favourites.route) {
-            FavouritesScreen(viewModel, actions.upPress)
+            FavouritesScreen(viewModel, actions)
         }
     }
 }

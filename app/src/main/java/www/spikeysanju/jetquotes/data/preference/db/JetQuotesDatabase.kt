@@ -30,9 +30,9 @@ package www.spikeysanju.jetquotes.data.preference.db
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import www.spikeysanju.jetquotes.model.Favourite
+import www.spikeysanju.jetquotes.model.Quote
 
-@Database(entities = [Favourite::class], version = 1)
+@Database(entities = [Quote::class], version = 1)
 abstract class JetQuotesDatabase : RoomDatabase() {
     abstract fun getFavouritesDao(): FavouritesDao
 }

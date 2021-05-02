@@ -54,7 +54,8 @@ fun QuotesCard(quote: Quote, actions: MainActions) {
         .wrapContentSize()
         .padding(12.dp)
         .clickable(onClick = {
-            actions.gotoDetails(quote.quote!!, quote.author!!)
+            actions.gotoDetails(quote.quote, quote.author!!)
+
         })
         .background(MaterialTheme.colors.primaryVariant)
         .padding(12.dp)) {
@@ -66,7 +67,7 @@ fun QuotesCard(quote: Quote, actions: MainActions) {
         )
 
         Text(
-            text = quote.quote.toString(),
+            text = quote.quote,
             style = typography.body1,
             color = MaterialTheme.colors.onBackground,
             modifier = Modifier.padding(12.dp, 0.dp, 0.dp, 0.dp)

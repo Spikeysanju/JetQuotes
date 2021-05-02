@@ -1,0 +1,41 @@
+<!--
+  ~ /*
+  ~  *
+  ~  *  * MIT License
+  ~  *  *
+  ~  *  * Copyright (c) 2020 Sanju S
+  ~  *  *
+  ~  *  * Permission is hereby granted, free of charge, to any person obtaining a copy
+  ~  *  * of this software and associated documentation files (the "Software"), to deal
+  ~  *  * in the Software without restriction, including without limitation the rights
+  ~  *  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  ~  *  * copies of the Software, and to permit persons to whom the Software is
+  ~  *  * furnished to do so, subject to the following conditions:
+  ~  *  *
+  ~  *  * The above copyright notice and this permission notice shall be included in all
+  ~  *  * copies or substantial portions of the Software.
+  ~  *  *
+  ~  *  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  ~  *  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  ~  *  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  ~  *  * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  ~  *  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  ~  *  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  ~  *  * SOFTWARE.
+  ~  *
+  ~  */
+  -->
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M19.5,13.572L12,21L4.5,13.572C4.0053,13.0906 3.6156,12.512 3.3555,11.8726C3.0954,11.2333 2.9706,10.5469 2.9887,9.8569C3.0069,9.1669 3.1678,8.4881 3.4611,7.8633C3.7545,7.2385 4.1741,6.6813 4.6935,6.2266C5.2128,5.7719 5.8207,5.4297 6.4788,5.2215C7.1369,5.0133 7.831,4.9436 8.5174,5.0168C9.2037,5.09 9.8675,5.3046 10.4669,5.6469C11.0662,5.9893 11.5882,6.452 12,7.006C12.4135,6.456 12.9361,5.9973 13.5351,5.6586C14.1341,5.3199 14.7965,5.1084 15.4809,5.0375C16.1654,4.9666 16.8571,5.0377 17.5128,5.2464C18.1685,5.4551 18.774,5.7969 19.2915,6.2504C19.8091,6.7038 20.2274,7.2593 20.5204,7.8819C20.8134,8.5045 20.9747,9.1809 20.9943,9.8687C21.0139,10.5565 20.8913,11.241 20.6341,11.8792C20.377,12.5175 19.9909,13.0958 19.5,13.578"
+        android:strokeWidth="1.5"
+        android:strokeColor="#333333"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+</vector>

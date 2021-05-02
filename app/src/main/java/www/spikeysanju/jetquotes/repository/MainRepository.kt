@@ -33,16 +33,16 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.conflate
 import kotlinx.coroutines.flow.flowOn
 import www.spikeysanju.jetquotes.data.preference.db.FavouritesDao
-import www.spikeysanju.jetquotes.model.Favourite
+import www.spikeysanju.jetquotes.model.Quote
 import javax.inject.Inject
 
 class MainRepository @Inject constructor(private val favouritesDao: FavouritesDao) {
 
-    fun getAllFavourites(): Flow<List<Favourite>> =
+    fun getAllFavourites(): Flow<List<Quote>> =
         favouritesDao.getAllFavourites().flowOn(Dispatchers.IO).conflate()
 
-    suspend fun insert(favourite: Favourite) = favouritesDao.insertFavourite(favourite)
-    suspend fun update(favourite: Favourite) = favouritesDao.updateFavourite(favourite)
-    suspend fun deleteByID(id: Int) = favouritesDao.deleteByID(id)
+    suspend fun insert(quote: Quote) = favouritesDao.insertFavourite(quote)
+    suspend fun update(quote: Quote) = favouritesDao.updateFavourite(quote)
+    suspend fun delete(quote: Quote) = favouritesDao.delete(quote = quote)
 
 }

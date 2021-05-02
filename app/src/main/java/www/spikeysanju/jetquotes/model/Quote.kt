@@ -28,11 +28,22 @@
 
 package www.spikeysanju.jetquotes.model
 
+import androidx.annotation.NonNull
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.squareup.moshi.Json
 
+@Entity(tableName = "favourites")
 data class Quote(
-        @Json(name = "quoteText")
-        val quote: String? = null,
-        @Json(name = "quoteAuthor")
-        val author: String? = null
+
+    @NonNull
+    @PrimaryKey
+    @ColumnInfo(name = "quote")
+    @Json(name = "quoteText")
+    val quote: String = "",
+
+    @ColumnInfo(name = "author")
+    @Json(name = "quoteAuthor")
+    val author: String? = ""
 )

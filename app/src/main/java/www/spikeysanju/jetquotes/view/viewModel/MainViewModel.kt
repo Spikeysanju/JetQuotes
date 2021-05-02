@@ -29,7 +29,6 @@
 package www.spikeysanju.jetquotes.view.viewModel
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.squareup.moshi.JsonAdapter
@@ -44,16 +43,17 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
 import www.spikeysanju.jetquotes.data.preference.UIModeDataStore
-import www.spikeysanju.jetquotes.model.Favourite
 import www.spikeysanju.jetquotes.model.Quote
 import www.spikeysanju.jetquotes.repository.MainRepository
 import www.spikeysanju.jetquotes.utils.FavouriteViewState
-import www.spikeysanju.jetquotes.utils.UIModeState
 import www.spikeysanju.jetquotes.utils.ViewState
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel @Inject constructor(application: Application, val repository: MainRepository) :
+class MainViewModel @Inject constructor(
+    application: Application,
+    private val repository: MainRepository
+) :
     AndroidViewModel(application) {
 
     // init UIModeDataStore
@@ -62,11 +62,9 @@ class MainViewModel @Inject constructor(application: Application, val repository
     // Backing property to avoid state updates from other classes
     private val _uiState = MutableStateFlow<ViewState>(ViewState.Loading)
     private val _favState = MutableStateFlow<FavouriteViewState>(FavouriteViewState.Loading)
-    private val _uiModeState = MutableStateFlow<UIModeState>(UIModeState.Default(false))
 
     // UI collects from this StateFlow to get it's state update
     val uiState = _uiState.asStateFlow()
-    val uiMode = _uiModeState.asStateFlow()
     val favState = _favState.asStateFlow()
 
     // get all quotes from assets folder
@@ -87,15 +85,6 @@ class MainViewModel @Inject constructor(application: Application, val repository
 
     // get ui mode
     val getUIMode = uiModeDataStore.uiMode
-
-    fun fetchUIMode() = viewModelScope.launch {
-        try {
-            _uiModeState.value = UIModeState.Success(uiModeDataStore.uiMode)
-        } catch (e: Exception) {
-            Log.i("Error occurred", "${e.printStackTrace()}")
-            _uiModeState.value = UIModeState.Error(e)
-        }
-    }
 
     // save ui mode
     fun setUIMode(isNightMode: Boolean) {
@@ -118,17 +107,17 @@ class MainViewModel @Inject constructor(application: Application, val repository
     }
 
     // insert favourite
-    fun insertFavourite(favourite: Favourite) = viewModelScope.launch {
-        repository.insert(favourite)
+    fun insertFavourite(quote: Quote) = viewModelScope.launch {
+        repository.insert(quote)
     }
 
     // update favourite
-    fun updateFavourite(favourite: Favourite) = viewModelScope.launch {
-        repository.update(favourite)
+    fun updateFavourite(quote: Quote) = viewModelScope.launch {
+        repository.update(quote)
     }
 
     // delete favourite
-    fun deleteFavourite(id: Int) = viewModelScope.launch {
-        repository.deleteByID(id)
+    fun deleteFavourite(quote: Quote) = viewModelScope.launch {
+        repository.delete(quote)
     }
 }

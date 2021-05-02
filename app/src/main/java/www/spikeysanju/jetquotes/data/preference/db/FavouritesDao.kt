@@ -29,25 +29,27 @@
 package www.spikeysanju.jetquotes.data.preference.db
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import kotlinx.coroutines.flow.Flow
-import www.spikeysanju.jetquotes.model.Favourite
+import www.spikeysanju.jetquotes.model.Quote
 
 @Dao
 interface FavouritesDao {
 
     @Query("SELECT * FROM favourites")
-    fun getAllFavourites(): Flow<List<Favourite>>
+    fun getAllFavourites(): Flow<List<Quote>>
 
-    @Insert
-    suspend fun insertFavourite(favourite: Favourite)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertFavourite(quote: Quote)
 
-    @Query("DELETE FROM favourites where id=:id")
-    suspend fun deleteByID(id: Int)
+    @Delete
+    suspend fun delete(quote: Quote)
 
-    @Update
-    suspend fun updateFavourite(favourite: Favourite)
+    @Update(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun updateFavourite(quote: Quote)
 
 }

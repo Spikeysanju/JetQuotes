@@ -43,9 +43,15 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import www.spikeysanju.jetquotes.R
 import www.spikeysanju.jetquotes.components.DetailCard
+import www.spikeysanju.jetquotes.view.viewModel.MainViewModel
 
 @Composable
-fun DetailScreen(upPress: () -> Unit, quote: String, author: String) {
+fun DetailScreen(
+    viewModel: MainViewModel,
+    upPress: () -> Unit,
+    quote: String,
+    author: String
+) {
     Scaffold(topBar = {
         TopAppBar(
             title = {
@@ -72,8 +78,9 @@ fun DetailScreen(upPress: () -> Unit, quote: String, author: String) {
     }, content = {
         // pass quote & author params to details card
         DetailCard(
-            quote = quote,
-            author = author
+            viewModel,
+            quote,
+            author
         )
     })
 }

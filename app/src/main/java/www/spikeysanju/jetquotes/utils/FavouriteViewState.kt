@@ -28,14 +28,14 @@
 
 package www.spikeysanju.jetquotes.utils
 
-import www.spikeysanju.jetquotes.model.Favourite
+import www.spikeysanju.jetquotes.model.Quote
 
 sealed class FavouriteViewState {
 
     // Represents different states for quotes
     object Empty : FavouriteViewState()
     object Loading : FavouriteViewState()
-    data class Success(val quote: List<Favourite>) : FavouriteViewState()
+    data class Success(val quote: List<Quote>) : FavouriteViewState()
     data class Error(val exception: Throwable) : FavouriteViewState()
 
 }

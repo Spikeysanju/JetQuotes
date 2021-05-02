@@ -45,11 +45,13 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import www.spikeysanju.jetquotes.R
+import www.spikeysanju.jetquotes.components.QuotesCard
+import www.spikeysanju.jetquotes.navigation.MainActions
 import www.spikeysanju.jetquotes.utils.FavouriteViewState
 import www.spikeysanju.jetquotes.view.viewModel.MainViewModel
 
 @Composable
-fun FavouritesScreen(viewModel: MainViewModel, upPress: () -> Unit) {
+fun FavouritesScreen(viewModel: MainViewModel, actions: MainActions) {
     Scaffold(topBar = {
         TopAppBar(
             title = {
@@ -64,7 +66,7 @@ fun FavouritesScreen(viewModel: MainViewModel, upPress: () -> Unit) {
             backgroundColor = MaterialTheme.colors.primary,
             contentColor = MaterialTheme.colors.onPrimary,
             navigationIcon = {
-                IconButton(onClick = upPress) {
+                IconButton(onClick = actions.upPress) {
                     Icon(
                         painter = painterResource(id = R.drawable.ic_back),
                         contentDescription = "Back Icon"
@@ -77,13 +79,12 @@ fun FavouritesScreen(viewModel: MainViewModel, upPress: () -> Unit) {
         // pass quote & author params to details card
         when (val result = viewModel.favState.collectAsState().value) {
             is FavouriteViewState.Empty -> {
-            }
-            is FavouriteViewState.Loading -> {
+                Text(text = "Empty List")
             }
             is FavouriteViewState.Success -> {
                 LazyColumn {
-                    items(result.quote) {
-                        Text(text = "${it.quote}")
+                    items(result.quote) { quote ->
+                        QuotesCard(quote = quote, actions = actions)
                     }
                 }
             }
