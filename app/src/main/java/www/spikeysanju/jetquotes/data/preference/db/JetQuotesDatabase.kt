@@ -26,13 +26,13 @@
  *
  */
 
-package www.spikeysanju.jetquotes.navigation
+package www.spikeysanju.jetquotes.data.preference.db
 
-import androidx.annotation.StringRes
-import www.spikeysanju.jetquotes.R
+import androidx.room.Database
+import androidx.room.RoomDatabase
+import www.spikeysanju.jetquotes.model.Quote
 
-sealed class Screen(val route: String, @StringRes val resourceId: Int) {
-    object Home : Screen("quotes", R.string.quotes)
-    object Details : Screen("details", R.string.details)
-    object Favourites : Screen("favourites", R.string.favourites)
+@Database(entities = [Quote::class], version = 1, exportSchema = false)
+abstract class JetQuotesDatabase : RoomDatabase() {
+    abstract fun getFavouritesDao(): FavouritesDao
 }

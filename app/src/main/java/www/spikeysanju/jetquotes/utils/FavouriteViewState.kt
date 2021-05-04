@@ -28,11 +28,14 @@
 
 package www.spikeysanju.jetquotes.utils
 
-import kotlinx.coroutines.flow.Flow
+import www.spikeysanju.jetquotes.model.Quote
 
-sealed class UIModeState {
-    // Represents different states for the LatestNews screen
-    data class Default(val boolean: Boolean) : UIModeState()
-    data class Success(val isNightMode: Flow<Boolean>) : UIModeState()
-    data class Error(val exception: Throwable) : UIModeState()
+sealed class FavouriteViewState {
+
+    // Represents different states for quotes
+    object Empty : FavouriteViewState()
+    object Loading : FavouriteViewState()
+    data class Success(val quote: List<Quote>) : FavouriteViewState()
+    data class Error(val exception: Throwable) : FavouriteViewState()
+
 }

@@ -26,13 +26,34 @@
  *
  */
 
-package www.spikeysanju.jetquotes.navigation
+package www.spikeysanju.jetquotes.di
 
-import androidx.annotation.StringRes
-import www.spikeysanju.jetquotes.R
+import android.content.Context
+import androidx.room.Room
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.components.SingletonComponent
+import www.spikeysanju.jetquotes.data.preference.db.FavouritesDao
+import www.spikeysanju.jetquotes.data.preference.db.JetQuotesDatabase
+import javax.inject.Singleton
 
-sealed class Screen(val route: String, @StringRes val resourceId: Int) {
-    object Home : Screen("quotes", R.string.quotes)
-    object Details : Screen("details", R.string.details)
-    object Favourites : Screen("favourites", R.string.favourites)
+@Module
+@InstallIn(SingletonComponent::class)
+object AppComponent {
+
+    @Singleton
+    @Provides
+    fun provideDao(jetQuotesDatabase: JetQuotesDatabase): FavouritesDao =
+        jetQuotesDatabase.getFavouritesDao()
+
+    @Singleton
+    @Provides
+    fun provideAppDatabase(@ApplicationContext context: Context): JetQuotesDatabase =
+        Room.databaseBuilder(
+            context,
+            JetQuotesDatabase::class.java,
+            "favourites-db"
+        ).fallbackToDestructiveMigration().build()
 }

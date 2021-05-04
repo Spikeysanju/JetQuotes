@@ -26,13 +26,30 @@
  *
  */
 
-package www.spikeysanju.jetquotes.navigation
+package www.spikeysanju.jetquotes.data.preference.db
 
-import androidx.annotation.StringRes
-import www.spikeysanju.jetquotes.R
+import androidx.room.Dao
+import androidx.room.Delete
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
+import androidx.room.Update
+import kotlinx.coroutines.flow.Flow
+import www.spikeysanju.jetquotes.model.Quote
 
-sealed class Screen(val route: String, @StringRes val resourceId: Int) {
-    object Home : Screen("quotes", R.string.quotes)
-    object Details : Screen("details", R.string.details)
-    object Favourites : Screen("favourites", R.string.favourites)
+@Dao
+interface FavouritesDao {
+
+    @Query("SELECT * FROM favourites")
+    fun getAllFavourites(): Flow<List<Quote>>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertFavourite(quote: Quote)
+
+    @Delete
+    suspend fun delete(quote: Quote)
+
+    @Update(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun updateFavourite(quote: Quote)
+
 }

@@ -28,52 +28,30 @@
 
 package www.spikeysanju.jetquotes.view.details
 
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
-import www.spikeysanju.jetquotes.R
 import www.spikeysanju.jetquotes.components.DetailCard
+import www.spikeysanju.jetquotes.components.TopBarWithBack
+import www.spikeysanju.jetquotes.view.viewModel.MainViewModel
 
 @Composable
-fun DetailScreen(upPress: () -> Unit, quote: String, author: String) {
+fun DetailScreen(
+    viewModel: MainViewModel,
+    upPress: () -> Unit,
+    quote: String,
+    author: String
+) {
     Scaffold(topBar = {
-        TopAppBar(
-            title = {
-                Text(
-                    text = "Details",
-                    textAlign = TextAlign.Center,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(end = 36.dp)
-                )
-            },
-            backgroundColor = MaterialTheme.colors.primary,
-            contentColor = MaterialTheme.colors.onPrimary,
-            navigationIcon = {
-                IconButton(onClick = upPress) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_back),
-                        contentDescription = "Back Icon"
-                    )
-                }
-            },
-            elevation = 0.dp
+        TopBarWithBack(
+            title = "Details",
+            onBackClick = { upPress() },
         )
     }, content = {
         // pass quote & author params to details card
         DetailCard(
-            quote = quote,
-            author = author
+            viewModel,
+            quote,
+            author
         )
     })
 }

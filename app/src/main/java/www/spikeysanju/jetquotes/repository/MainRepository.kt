@@ -26,13 +26,23 @@
  *
  */
 
-package www.spikeysanju.jetquotes.navigation
+package www.spikeysanju.jetquotes.repository
 
-import androidx.annotation.StringRes
-import www.spikeysanju.jetquotes.R
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.conflate
+import kotlinx.coroutines.flow.flowOn
+import www.spikeysanju.jetquotes.data.preference.db.FavouritesDao
+import www.spikeysanju.jetquotes.model.Quote
+import javax.inject.Inject
 
-sealed class Screen(val route: String, @StringRes val resourceId: Int) {
-    object Home : Screen("quotes", R.string.quotes)
-    object Details : Screen("details", R.string.details)
-    object Favourites : Screen("favourites", R.string.favourites)
+class MainRepository @Inject constructor(private val favouritesDao: FavouritesDao) {
+
+    fun getAllFavourites(): Flow<List<Quote>> =
+        favouritesDao.getAllFavourites().flowOn(Dispatchers.IO).conflate()
+
+    suspend fun insert(quote: Quote) = favouritesDao.insertFavourite(quote)
+    suspend fun update(quote: Quote) = favouritesDao.updateFavourite(quote)
+    suspend fun delete(quote: Quote) = favouritesDao.delete(quote = quote)
+
 }
