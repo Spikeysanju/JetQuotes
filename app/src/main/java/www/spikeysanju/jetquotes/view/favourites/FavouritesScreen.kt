@@ -61,6 +61,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import www.spikeysanju.jetquotes.components.EmptyScreen
 import www.spikeysanju.jetquotes.components.QuotesCard
 import www.spikeysanju.jetquotes.components.TopBarWithBack
 import www.spikeysanju.jetquotes.navigation.MainActions
@@ -79,9 +80,7 @@ fun FavouritesScreen(viewModel: MainViewModel, actions: MainActions) {
     }, content = {
         // pass quote & author params to details card
         when (val result = viewModel.favState.collectAsState().value) {
-            is FavouriteViewState.Empty -> {
-                Text(text = "Empty List")
-            }
+            is FavouriteViewState.Empty -> EmptyScreen(actions)
             is FavouriteViewState.Success -> {
                 LazyColumn {
                     items(result.quote) { quote ->
