@@ -28,6 +28,7 @@
 
 package www.spikeysanju.jetquotes.navigation
 
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.navigation.NavHostController
@@ -48,6 +49,7 @@ object EndPoints {
     const val AUTHOR = "author"
 }
 
+@ExperimentalMaterialApi
 @Composable
 fun JetQuotesMain(viewModel: MainViewModel, toggleTheme: () -> Unit) {
     val navController = rememberNavController()
