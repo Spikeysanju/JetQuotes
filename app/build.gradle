@@ -111,7 +111,7 @@ dependencies {
     kapt "com.google.dagger:hilt-android-compiler:$hiltVersion"
     implementation "androidx.hilt:hilt-lifecycle-viewmodel:$hiltAndroidXVersion"
     kapt "androidx.hilt:hilt-compiler:$hiltAndroidXVersion"
-    implementation "androidx.hilt:hilt-navigation-compose:1.0.0-alpha01"
+    implementation "androidx.hilt:hilt-navigation-compose:1.0.0-alpha02"
     implementation "androidx.hilt:hilt-common:1.0.0-beta01"
     kapt "com.google.dagger:hilt-compiler:2.33-beta"
 
