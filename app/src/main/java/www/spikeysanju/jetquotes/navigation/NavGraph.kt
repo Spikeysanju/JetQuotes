@@ -55,7 +55,7 @@ object EndPoints {
 
 @ExperimentalMaterialApi
 @Composable
-fun JetQuotesMain(toggleTheme: () -> Unit) {
+fun NavGraph(toggleTheme: () -> Unit) {
     val navController = rememberNavController()
     val actions = remember(navController) { MainActions(navController) }
 
