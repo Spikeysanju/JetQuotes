@@ -28,7 +28,6 @@
 
 package www.spikeysanju.jetquotes.view.quotes
 
-import android.annotation.SuppressLint
 import android.widget.Toast
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
@@ -40,7 +39,6 @@ import www.spikeysanju.jetquotes.navigation.MainActions
 import www.spikeysanju.jetquotes.utils.ViewState
 import www.spikeysanju.jetquotes.view.viewModel.MainViewModel
 
-@SuppressLint("CoroutineCreationDuringComposition")
 @Composable
 fun QuotesListScreen(
     viewModel: MainViewModel,
@@ -55,6 +53,11 @@ fun QuotesListScreen(
         )
     }, content = {
         val context = LocalContext.current
+
+        // get all quotes
+        viewModel.getAllQuotes(context)
+
+        // observe quotes
         when (val result = viewModel.uiState.collectAsState().value) {
             is ViewState.Error -> {
                 Toast.makeText(

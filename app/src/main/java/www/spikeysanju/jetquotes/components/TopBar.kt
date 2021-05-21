@@ -48,6 +48,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import www.spikeysanju.jetquotes.R
 import www.spikeysanju.jetquotes.ui.typography
@@ -81,7 +82,7 @@ fun TopBar(title: String, onToggle: () -> Unit, onFavouritesClick: () -> Unit) {
                     val settingsIcon: Painter = painterResource(id = R.drawable.ic_heart)
                     Icon(
                         painter = settingsIcon,
-                        contentDescription = "Favourites Icon",
+                        contentDescription = stringResource(R.string.text_favourites_icon),
                         tint = MaterialTheme.colors.onPrimary
                     )
                 }
@@ -93,7 +94,7 @@ fun TopBar(title: String, onToggle: () -> Unit, onFavouritesClick: () -> Unit) {
                         painterResource(id = R.drawable.ic_day)
                     Icon(
                         painter = toggleIcon,
-                        contentDescription = "Day/Night Icon",
+                        contentDescription = stringResource(R.string.text_day_night),
                         tint = MaterialTheme.colors.onPrimary
                     )
                 }
@@ -115,7 +116,7 @@ fun TopBarWithBack(title: String, onBackClick: () -> Unit) {
         IconButton(onClick = { onBackClick() }, modifier = Modifier.padding(start = 16.dp)) {
             Icon(
                 imageVector = Icons.Default.ArrowBack,
-                contentDescription = "Back Icon",
+                contentDescription = stringResource(R.string.text_back_icon),
                 tint = MaterialTheme.colors.onPrimary
             )
         }

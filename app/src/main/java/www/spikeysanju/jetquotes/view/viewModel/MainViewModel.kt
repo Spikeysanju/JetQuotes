@@ -28,21 +28,19 @@
 
 package www.spikeysanju.jetquotes.view.viewModel
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
+import android.content.Context
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
-import www.spikeysanju.jetquotes.data.preference.UIModeDataStore
 import www.spikeysanju.jetquotes.model.Quote
 import www.spikeysanju.jetquotes.repository.MainRepository
 import www.spikeysanju.jetquotes.utils.FavouriteViewState
@@ -50,14 +48,7 @@ import www.spikeysanju.jetquotes.utils.ViewState
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel @Inject constructor(
-    application: Application,
-    private val repository: MainRepository
-) :
-    AndroidViewModel(application) {
-
-    // init UIModeDataStore
-    private val uiModeDataStore = UIModeDataStore(application)
+class MainViewModel @Inject constructor(private val repository: MainRepository) : ViewModel() {
 
     // Backing property to avoid state updates from other classes
     private val _uiState = MutableStateFlow<ViewState>(ViewState.Loading)
@@ -68,7 +59,7 @@ class MainViewModel @Inject constructor(
     val favState = _favState.asStateFlow()
 
     // get all quotes from assets folder
-    fun getAllQuotes(application: Application) = viewModelScope.launch {
+    fun getAllQuotes(context: Context) = viewModelScope.launch {
         try {
             val moshi = Moshi.Builder()
                 .add(KotlinJsonAdapterFactory())
@@ -76,20 +67,10 @@ class MainViewModel @Inject constructor(
             val listType = Types.newParameterizedType(List::class.java, Quote::class.java)
             val adapter: JsonAdapter<List<Quote>> = moshi.adapter(listType)
             val myJson =
-                application.assets.open("quotes.json").bufferedReader().use { it.readText() }
+                context.assets.open("quotes.json").bufferedReader().use { it.readText() }
             _uiState.value = ViewState.Success(adapter.fromJson(myJson)!!)
         } catch (e: Exception) {
             _uiState.value = ViewState.Error(exception = e)
-        }
-    }
-
-    // get ui mode
-    val getUIMode = uiModeDataStore.uiMode
-
-    // save ui mode
-    fun setUIMode(isNightMode: Boolean) {
-        viewModelScope.launch(IO) {
-            uiModeDataStore.saveToDataStore(isNightMode)
         }
     }
 

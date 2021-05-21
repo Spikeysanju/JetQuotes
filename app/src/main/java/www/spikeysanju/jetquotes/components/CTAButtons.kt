@@ -43,6 +43,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import www.spikeysanju.jetquotes.R
 import www.spikeysanju.jetquotes.model.Quote
@@ -64,7 +65,7 @@ fun CTAButtons(viewModel: MainViewModel, quote: String, author: String) {
 
             Button(
                 icon = painterResource(id = R.drawable.ic_heart),
-                name = "FAVOURITE",
+                name = stringResource(R.string.text_favourite),
                 modifier = Modifier.clickable(onClick = {
                     val quotes = Quote(quote, author)
                     viewModel.insertFavourite(quotes)
@@ -76,7 +77,7 @@ fun CTAButtons(viewModel: MainViewModel, quote: String, author: String) {
 
             Button(
                 icon = painterResource(id = R.drawable.ic_copy),
-                name = "COPY",
+                name = stringResource(R.string.text_copy),
                 modifier = Modifier.clickable(onClick = {
                     context.copyToClipboard(quote.plus("").plus("- $author"))
                     Toast.makeText(context, "Quote Copied!", Toast.LENGTH_SHORT).show()
@@ -87,7 +88,7 @@ fun CTAButtons(viewModel: MainViewModel, quote: String, author: String) {
 
             Button(
                 icon = painterResource(id = R.drawable.ic_share),
-                name = "SHARE",
+                name = stringResource(R.string.text_share),
                 modifier = Modifier.clickable(onClick = {
                     context.shareToOthers(quote.plus("").plus("- $author"))
                 })

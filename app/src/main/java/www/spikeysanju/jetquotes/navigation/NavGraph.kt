@@ -31,6 +31,10 @@ package www.spikeysanju.jetquotes.navigation
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
+import androidx.compose.ui.platform.LocalContext
+import androidx.hilt.navigation.HiltViewModelFactory
+import androidx.hilt.navigation.compose.hiltNavGraphViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -51,13 +55,16 @@ object EndPoints {
 
 @ExperimentalMaterialApi
 @Composable
-fun JetQuotesMain(viewModel: MainViewModel, toggleTheme: () -> Unit) {
+fun NavGraph(toggleTheme: () -> Unit) {
     val navController = rememberNavController()
     val actions = remember(navController) { MainActions(navController) }
 
     NavHost(navController, startDestination = Screen.Home.route) {
         // Quotes List
         composable(Screen.Home.route) {
+            val viewModel: MainViewModel = viewModel(
+                factory = HiltViewModelFactory(LocalContext.current, it)
+            )
             QuotesListScreen(viewModel, toggleTheme, actions)
         }
 
@@ -70,6 +77,7 @@ fun JetQuotesMain(viewModel: MainViewModel, toggleTheme: () -> Unit) {
                     type = NavType.StringType
                 })
         ) {
+            val viewModel = hiltNavGraphViewModel<MainViewModel>(backStackEntry = it)
             DetailScreen(
                 viewModel,
                 actions.upPress,
@@ -80,6 +88,7 @@ fun JetQuotesMain(viewModel: MainViewModel, toggleTheme: () -> Unit) {
 
         // Favourites
         composable(Screen.Favourites.route) {
+            val viewModel = hiltNavGraphViewModel<MainViewModel>(backStackEntry = it)
             FavouritesScreen(viewModel, actions)
         }
     }

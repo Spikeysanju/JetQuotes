@@ -33,4 +33,16 @@
     <string name="quotes">Quotes</string>
     <string name="details">Details</string>
     <string name="favourites">Favourites</string>
+    <string name="text_unknow">\" - Unknown\"</string>
+    <string name="text_copy">COPY</string>
+    <string name="text_share">SHARE</string>
+    <string name="text_favourite">FAVOURITE</string>
+    <string name="no_quotes_found">\" No Quotes found\"</string>
+    <string name="text_empty_wish_list">Your wish list is empty!</string>
+    <string name="text_empty_explore">Explore more and add some quotes!</string>
+    <string name="text_back_to_home">Back to home</string>
+    <string name="text_back_icon">Back Icon</string>
+    <string name="text_day_night">Day/Night Icon</string>
+    <string name="text_favourites_icon">Favourites Icon</string>
+    <string name="text_cta_icons">CTA Icons</string>
 </resources>

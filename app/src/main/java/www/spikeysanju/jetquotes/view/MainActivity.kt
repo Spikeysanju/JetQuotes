@@ -36,57 +36,57 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.viewmodel.compose.viewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import www.spikeysanju.jetquotes.navigation.JetQuotesMain
+import www.spikeysanju.jetquotes.data.preference.UIModeImpl
+import www.spikeysanju.jetquotes.navigation.NavGraph
 import www.spikeysanju.jetquotes.ui.JetQuotesTheme
-import www.spikeysanju.jetquotes.view.viewModel.MainViewModel
-
+import javax.inject.Inject
 
 @ExperimentalMaterialApi
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-    private lateinit var viewModel: MainViewModel
+    @Inject
+    lateinit var uiModeDataStore: UIModeImpl
 
-    @InternalCoroutinesApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            //init viewModel
-            viewModel = viewModel()
+            JetQuotesMain()
+        }
+        // observe theme change
+        observeUITheme()
+    }
 
-            // get all quotes
-            viewModel.getAllQuotes(application)
+    @Composable
+    fun JetQuotesMain() {
 
-            // observe theme change
-            observeUITheme()
+        // check UI mode
+        val darkMode by uiModeDataStore.uiMode.collectAsState(initial = isSystemInDarkTheme())
 
-            // check UI mode
-            val darkMode by viewModel.getUIMode.collectAsState(initial = isSystemInDarkTheme())
-            // set UI mode accordingly
-            val toggleTheme: () -> Unit = {
-                lifecycleScope.launch {
-                    viewModel.setUIMode(!darkMode)
-                }
-            }
-
-            JetQuotesTheme(darkTheme = darkMode) {
-                Surface(color = MaterialTheme.colors.background) {
-                    JetQuotesMain(viewModel, toggleTheme)
-                }
+        // set UI mode accordingly
+        val toggleTheme: () -> Unit = {
+            lifecycleScope.launch {
+                uiModeDataStore.saveToDataStore(!darkMode)
             }
         }
+
+        JetQuotesTheme(darkTheme = darkMode) {
+            Surface(color = MaterialTheme.colors.background) {
+                NavGraph(toggleTheme)
+            }
+        }
+
     }
 
     private fun observeUITheme() {
         lifecycleScope.launchWhenStarted {
-            viewModel.getUIMode.collect {
+            uiModeDataStore.uiMode.collect {
                 val mode = when (it) {
                     true -> AppCompatDelegate.MODE_NIGHT_YES
                     false -> AppCompatDelegate.MODE_NIGHT_NO
