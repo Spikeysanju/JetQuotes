@@ -35,6 +35,7 @@ import androidx.compose.material.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import www.spikeysanju.jetquotes.R
 
@@ -47,7 +48,7 @@ fun QuotesThemeSwitch(onToggle: () -> Unit) {
     }
 
     Icon(
-        painter = icon, contentDescription = "",
+        painter = icon, contentDescription = stringResource(id = R.string.text_day_night),
         Modifier
             .padding(end = 8.dp)
             .clickable(onClick = onToggle)

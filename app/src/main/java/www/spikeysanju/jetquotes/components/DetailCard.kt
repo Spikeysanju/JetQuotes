@@ -45,8 +45,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import www.spikeysanju.jetquotes.R
 import www.spikeysanju.jetquotes.utils.copyToClipboard
 import www.spikeysanju.jetquotes.view.viewModel.MainViewModel
 
@@ -90,7 +92,7 @@ fun DetailCard(viewModel: MainViewModel, quote: String, author: String) {
                 modifier = Modifier
                     .align(Alignment.CenterHorizontally)
                     .wrapContentSize(align = Alignment.Center),
-                text = quote.ifBlank { " No Quotes found" },
+                text = quote.ifBlank { stringResource(R.string.no_quotes_found) },
                 style = typography.h5,
                 color = MaterialTheme.colors.onBackground,
                 textAlign = TextAlign.Center
@@ -100,7 +102,7 @@ fun DetailCard(viewModel: MainViewModel, quote: String, author: String) {
 
             Text(
                 modifier = Modifier.align(Alignment.CenterHorizontally),
-                text = author.ifBlank { " - Unknown" },
+                text = author.ifBlank { stringResource(R.string.text_unknow) },
                 style = typography.body1,
                 color = MaterialTheme.colors.onBackground,
                 textAlign = TextAlign.Center

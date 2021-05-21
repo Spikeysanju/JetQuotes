@@ -36,6 +36,7 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import javax.inject.Singleton
 
 abstract class PrefsDataStore(context: Context, fileName: String) {
     private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(fileName)
@@ -67,6 +68,7 @@ class UIModeDataStore(context: Context) : PrefsDataStore(context = context, PREF
     }
 }
 
+@Singleton
 interface UIModeImpl {
     val uiMode: Flow<Boolean>
     suspend fun saveToDataStore(isNightMode: Boolean)

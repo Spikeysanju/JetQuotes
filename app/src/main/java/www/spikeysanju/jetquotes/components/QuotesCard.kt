@@ -43,7 +43,9 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import www.spikeysanju.jetquotes.R
 import www.spikeysanju.jetquotes.model.Quote
 import www.spikeysanju.jetquotes.navigation.MainActions
 
@@ -70,7 +72,7 @@ fun QuotesCard(quote: Quote, actions: MainActions) {
             text = quote.quote,
             style = typography.body1,
             color = MaterialTheme.colors.onBackground,
-            modifier = Modifier.padding(12.dp, 0.dp, 0.dp, 0.dp)
+            modifier = Modifier.padding(start = 12.dp)
         )
 
         Spacer(Modifier.height(12.dp))
@@ -80,7 +82,7 @@ fun QuotesCard(quote: Quote, actions: MainActions) {
                 modifier = Modifier
                     .align(Alignment.CenterEnd)
                     .padding(12.dp),
-                text = quote.author.toString().ifBlank { " - Unknown" },
+                text = quote.author.toString().ifBlank { stringResource(R.string.text_unknow) },
                 style = typography.caption,
                 color = MaterialTheme.colors.onBackground
             )

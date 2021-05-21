@@ -41,10 +41,9 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import www.spikeysanju.jetquotes.data.preference.UIModeDataStore
+import www.spikeysanju.jetquotes.data.preference.UIModeImpl
 import www.spikeysanju.jetquotes.navigation.NavGraph
 import www.spikeysanju.jetquotes.ui.JetQuotesTheme
 import javax.inject.Inject
@@ -52,10 +51,9 @@ import javax.inject.Inject
 @ExperimentalMaterialApi
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-
     @Inject
-    lateinit var uiModeDataStore: UIModeDataStore
-    @InternalCoroutinesApi
+    lateinit var uiModeDataStore: UIModeImpl
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {

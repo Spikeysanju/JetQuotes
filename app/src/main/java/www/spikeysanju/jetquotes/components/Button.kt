@@ -40,17 +40,21 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import www.spikeysanju.jetquotes.R
 
 @Composable
 fun Button(icon: Painter, name: String?, modifier: Modifier) {
     Column(
-        modifier.background(MaterialTheme.colors.primaryVariant).padding(12.dp)) {
+        modifier
+            .background(MaterialTheme.colors.primaryVariant)
+            .padding(12.dp)) {
 
         Icon(
             painter = icon,
-            contentDescription = ""
+            contentDescription = stringResource(R.string.text_cta_icons)
         )
         Spacer(modifier = Modifier.height(8.dp))
         Text(text = name.toString(),

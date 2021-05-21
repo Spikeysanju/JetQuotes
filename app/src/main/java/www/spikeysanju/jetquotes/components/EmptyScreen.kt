@@ -42,6 +42,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.airbnb.lottie.compose.LottieAnimation
@@ -62,14 +63,14 @@ fun EmptyScreen(actions: MainActions) {
     ) {
         Loader()
         Text(
-            text = "Your wish list is empty!",
+            text = stringResource(R.string.text_empty_wish_list),
             modifier = Modifier.fillMaxWidth(),
             style = typography.h6,
             textAlign = TextAlign.Center
         )
         Spacer(modifier = Modifier.height(8.dp))
         Text(
-            text = "Explore more and add some quotes!",
+            text = stringResource(R.string.text_empty_explore),
             modifier = Modifier.fillMaxWidth(),
             style = typography.body2,
             textAlign = TextAlign.Center,
@@ -82,7 +83,7 @@ fun EmptyScreen(actions: MainActions) {
                 contentColor = MaterialTheme.colors.background
             )
         ) {
-            Text(text = "Back to home")
+            Text(text = stringResource(R.string.text_back_to_home))
         }
     }
 }
