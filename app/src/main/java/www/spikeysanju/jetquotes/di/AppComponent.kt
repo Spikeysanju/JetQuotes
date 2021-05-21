@@ -35,6 +35,8 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import www.spikeysanju.jetquotes.data.preference.UIModeDataStore
+import www.spikeysanju.jetquotes.data.preference.UIModeImpl
 import www.spikeysanju.jetquotes.data.preference.db.FavouritesDao
 import www.spikeysanju.jetquotes.data.preference.db.JetQuotesDatabase
 import javax.inject.Singleton
@@ -42,6 +44,12 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object AppComponent {
+
+    @Singleton
+    @Provides
+    fun providePreferenceManager(@ApplicationContext context: Context): UIModeImpl {
+        return UIModeDataStore(context)
+    }
 
     @Singleton
     @Provides
