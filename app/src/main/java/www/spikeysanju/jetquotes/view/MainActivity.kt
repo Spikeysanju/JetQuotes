@@ -47,9 +47,7 @@ import kotlinx.coroutines.launch
 import www.spikeysanju.jetquotes.data.preference.UIModeDataStore
 import www.spikeysanju.jetquotes.navigation.NavGraph
 import www.spikeysanju.jetquotes.ui.JetQuotesTheme
-import www.spikeysanju.jetquotes.view.viewModel.MainViewModel
 import javax.inject.Inject
-
 
 @ExperimentalMaterialApi
 @AndroidEntryPoint
@@ -57,8 +55,6 @@ class MainActivity : AppCompatActivity() {
 
     @Inject
     lateinit var uiModeDataStore: UIModeDataStore
-    private lateinit var viewModel: MainViewModel
-
     @InternalCoroutinesApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -92,7 +88,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun observeUITheme() {
         lifecycleScope.launchWhenStarted {
-            viewModel.getUIMode.collect {
+            uiModeDataStore.uiMode.collect {
                 val mode = when (it) {
                     true -> AppCompatDelegate.MODE_NIGHT_YES
                     false -> AppCompatDelegate.MODE_NIGHT_NO
