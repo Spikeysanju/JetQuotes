@@ -42,7 +42,6 @@ abstract class PrefsDataStore(context: Context, fileName: String) {
     val mDataStore: DataStore<Preferences> = context.dataStore
 }
 
-
 class UIModeDataStore(context: Context) : PrefsDataStore(context = context, PREF_FILE_UI_MODE),
     UIModeImpl {
 
