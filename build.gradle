@@ -36,7 +36,7 @@ buildscript {
         roomVersion = "2.3.0"
 
     }
-    ext.kotlin_version = "1.4.32"
+    ext.kotlin_version = "1.5.10"
     repositories {
         google()
         mavenCentral()
