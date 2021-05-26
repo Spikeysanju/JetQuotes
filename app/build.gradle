@@ -113,7 +113,7 @@ dependencies {
     kapt "androidx.hilt:hilt-compiler:$hiltAndroidXVersion"
     implementation "androidx.hilt:hilt-navigation-compose:1.0.0-alpha01"
     implementation "androidx.hilt:hilt-common:1.0.0"
-    kapt "com.google.dagger:hilt-compiler:2.33-beta"
+    kapt "com.google.dagger:hilt-compiler:2.36"
 
     // Lottie
     implementation ("com.airbnb.android:lottie-compose:1.0.0-beta03-1")
